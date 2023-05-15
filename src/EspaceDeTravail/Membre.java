@@ -103,6 +103,27 @@ public class Membre {
 		this.sonEspaceDeTravail.remove(EspaceDeTravail);
 	}
 	public void ajouterCarte(Carte Carte) {
+
 		this.sesCartes.add(Carte);
+		if (!Carte.getSesMembres().contains(this)) {
+			Carte.ajouterMembre(this);
+		}
+		;
+	}
+
+	// ToString
+
+	@Override
+	public String toString() {
+		return "Membre{" +
+				"sonEspaceDeTravail=" + sonEspaceDeTravail +
+				", sonTableau=" + sonTableau +
+				", sesCartes=" + sesCartes +
+				", numMembre=" + numMembre +
+				", nomMembre='" + nomMembre + '\'' +
+				", prenomMembre='" + prenomMembre + '\'' +
+				", emailMembre='" + emailMembre + '\'' +
+				", imageProfile='" + imageProfile + '\'' +
+				'}';
 	}
 }

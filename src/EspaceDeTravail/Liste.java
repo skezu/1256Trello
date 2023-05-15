@@ -62,4 +62,16 @@ public class Liste {
 	public void retirerCarte(Carte Carte) {
 		this.sesCartes.remove(Carte);
 	}
+
+	// ToString
+
+	@Override
+	public String toString() {
+		return "Liste{" +
+				"sonTableau=" + sonTableau +
+				", sesCartes=" + sesCartes +
+				", numListe=" + numListe +
+				", nomListe='" + nomListe + '\'' +
+				'}';
+	}
 }

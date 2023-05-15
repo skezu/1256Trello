@@ -109,5 +109,20 @@ public class Tableau {
 	public void retirerMembre(Membre membre) {
 		sesMembres.remove(membre);
 	}
-	
+
+	// ToString
+
+	@Override
+	public String toString() {
+		return "Tableau{" +
+				"sesListes=" + sesListes +
+				", SonEspaceDeTravail=" + SonEspaceDeTravail +
+				", sesMembres=" + sesMembres +
+				", saVisibilite=" + saVisibilite +
+				", numTableau=" + numTableau +
+				", nomTableau='" + nomTableau + '\'' +
+				", categorieTableau='" + categorieTableau + '\'' +
+				", imageTableau='" + imageTableau + '\'' +
+				'}';
+	}
 }

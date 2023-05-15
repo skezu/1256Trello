@@ -91,6 +91,26 @@ public class Carte {
 
 	// Methodes
 	public void ajouterMembre(Membre Membre) {
+
 		sesMembres.add(Membre);
+		if (!Membre.getSesCartes().contains(this)) {
+			Membre.ajouterCarte(this);
+		}
+
+	}
+
+	// ToString
+
+	@Override
+	public String toString() {
+		return "Carte{" +
+				"saListe=" + saListe +
+				", sesMembres=" + sesMembres +
+				", numCarte=" + numCarte +
+				", titreCarte='" + titreCarte + '\'' +
+				", description='" + description + '\'' +
+				", dateDebut='" + dateDebut + '\'' +
+				", dateLimite='" + dateLimite + '\'' +
+				'}';
 	}
 }

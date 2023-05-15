@@ -65,4 +65,14 @@ public class Visibilite {
 	public void retirerTableau(Tableau Tableau) {
 		this.sesTableau.remove(Tableau);
 	}
+
+	// ToString
+
+	@Override
+	public String toString() {
+		return "Visibilite{" +
+				"sonEspaceDeTravail=" + sonEspaceDeTravail +
+				", sesTableau=" + sesTableau +
+				'}';
+	}
 }

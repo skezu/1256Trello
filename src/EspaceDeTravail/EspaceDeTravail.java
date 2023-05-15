@@ -91,4 +91,18 @@ public class EspaceDeTravail {
 	public void retirerMembre(Membre Membre) {
 		this.sesMembres.remove(Membre);
 	}
+
+	// ToString
+
+	@Override
+	public String toString() {
+		return "EspaceDeTravail{" +
+				"sesTableaux=" + sesTableaux +
+				", sesMembres=" + sesMembres +
+				", saVisibilité=" + saVisibilité +
+				", numEspaceDeTravail=" + numEspaceDeTravail +
+				", nomEspaceDeTravail='" + nomEspaceDeTravail + '\'' +
+				", logoEspaceDeTravail='" + logoEspaceDeTravail + '\'' +
+				'}';
+	}
 }
