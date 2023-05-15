@@ -91,12 +91,16 @@ public class Carte {
 
 	// Methodes
 	public void ajouterMembre(Membre Membre) {
-
-		sesMembres.add(Membre);
 		if (!Membre.getSesCartes().contains(this)) {
+			this.sesMembres.add(Membre);
 			Membre.ajouterCarte(this);
 		}
-
+	}
+	public void retirerMembre(Membre Membre){
+		if (Membre.getSesCartes().contains(this)) {
+			this.sesMembres.remove(Membre);
+			Membre.retirerCarte(this);
+		}
 	}
 
 	// ToString

@@ -8,20 +8,20 @@ public class Visibilite {
 	private static int compteurNum = 0;
 	
 	// Attribut d'instance
-	private ArrayList<EspaceDeTravail> sonEspaceDeTravail;
+	private ArrayList<EspaceTravail> sonEspaceTravail;
 	private ArrayList<Tableau> sesTableau;
 	private static int numVisibilite;
 	private static String nom;
 	
 	// Constructeur
 	public Visibilite() {
-		sonEspaceDeTravail = new ArrayList<EspaceDeTravail>();
+		sonEspaceTravail = new ArrayList<EspaceTravail>();
 		sesTableau = new ArrayList<Tableau>();
 		numVisibilite = compteurNum++;
 		nom = "Public";
 	}
-	public Visibilite(ArrayList<EspaceDeTravail> sonEspaceDeTravail, ArrayList<Tableau> sesTableau, int numVisibilite, String nom) {
-		this.sonEspaceDeTravail = sonEspaceDeTravail;
+	public Visibilite(ArrayList<EspaceTravail> sonEspaceTravail, ArrayList<Tableau> sesTableau, int numVisibilite, String nom) {
+		this.sonEspaceTravail = sonEspaceTravail;
 		this.sesTableau = sesTableau;
 		this.numVisibilite = compteurNum++;
 		this.nom = nom;
@@ -30,8 +30,8 @@ public class Visibilite {
 	// Getter
 
 
-	public ArrayList<EspaceDeTravail> getSonEspaceDeTravail() {
-		return sonEspaceDeTravail;
+	public ArrayList<EspaceTravail> getSonEspaceDeTravail() {
+		return sonEspaceTravail;
 	}
 
 	public ArrayList<Tableau> getSesTableau() {
@@ -53,11 +53,11 @@ public class Visibilite {
 	}
 
 	// Methode
-	public void ajouterEspaceDeTravail(EspaceDeTravail EspaceDeTravail) {
-		this.sonEspaceDeTravail.add(EspaceDeTravail);
+	public void ajouterEspaceDeTravail(EspaceTravail EspaceTravail) {
+		this.sonEspaceTravail.add(EspaceTravail);
 	}
-	public void retirerEspaceDeTravail(EspaceDeTravail EspaceDeTravail) {
-		this.sonEspaceDeTravail.remove(EspaceDeTravail);
+	public void retirerEspaceDeTravail(EspaceTravail EspaceTravail) {
+		this.sonEspaceTravail.remove(EspaceTravail);
 	}
 	public void ajouterTableau(Tableau Tableau) {
 		this.sesTableau.add(Tableau);
@@ -71,7 +71,7 @@ public class Visibilite {
 	@Override
 	public String toString() {
 		return "Visibilite{" +
-				"sonEspaceDeTravail=" + sonEspaceDeTravail +
+				"sonEspaceDeTravail=" + sonEspaceTravail +
 				", sesTableau=" + sesTableau +
 				'}';
 	}

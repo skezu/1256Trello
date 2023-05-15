@@ -54,19 +54,22 @@ import java.net.*;
  *
  * @author Jeff Dinkins
  */
-public class OptionPaneDemo extends DemoModule {
+//public class OptionPaneDemo extends DemoModule {
 
     /**
      * main method allows us to run as a standalone demo.
      */
+
+    /*
     public static void main(String[] args) {
         OptionPaneDemo demo = new OptionPaneDemo(null);
         demo.mainImpl();
     }
-
+*/
     /**
      * OptionPaneDemo Constructor
      */
+    /*
     public OptionPaneDemo(SwingSet2 swingset) {
         // Set the title for this demo, and an icon used to represent this
         // demo inside the SwingSet2 app.
@@ -231,4 +234,4 @@ public class OptionPaneDemo extends DemoModule {
     }
 
 }
- 
+*/

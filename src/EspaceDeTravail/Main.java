@@ -4,8 +4,8 @@ public class Main {
     // Test all objects from EspaceDeTravail package
     public static void main(String[] args) {
         // Create an object from Carte, EspaceDeTravail, Liste, Membre, Tableau, Visibilite
-        Carte c1 = new Carte();
-        EspaceDeTravail e1 = new EspaceDeTravail();
+        /*Carte c1 = new Carte();
+        EspaceTravail e1 = new EspaceTravail();
         Liste l1 = new Liste();
         Membre m1 = new Membre();
         Tableau t1 = new Tableau();
@@ -22,7 +22,7 @@ public class Main {
         System.out.println();
         System.out.println(t1);
         System.out.println();
-        System.out.println(v1);
+        System.out.println(v1);*/
 
 
 

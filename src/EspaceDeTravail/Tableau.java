@@ -8,7 +8,7 @@ public class Tableau {
 	
 	// Attribut d'instance
 	private ArrayList<Liste> sesListes;
-	private EspaceDeTravail SonEspaceDeTravail;
+	private EspaceTravail sonEspaceTravail;
 	private ArrayList<Membre> sesMembres;
 	private Visibilite saVisibilite;
 	private int numTableau;
@@ -17,9 +17,8 @@ public class Tableau {
 	private String imageTableau;
 	
 	// Constructeur
-	public Tableau(){
+	public Tableau(EspaceTravail sonEspaceTravail) {
 		sesListes = new ArrayList<Liste>();
-		SonEspaceDeTravail = new EspaceDeTravail();
 		sesMembres = new ArrayList<Membre>();
 		saVisibilite = new Visibilite();
 		numTableau = compteurNum++;
@@ -27,10 +26,18 @@ public class Tableau {
 		categorieTableau = "";
 		imageTableau = "";
 	}
-	
-	public Tableau(ArrayList<Liste> sesListes, EspaceDeTravail SonEspaceDeTravail, ArrayList<Membre> sesMembres, Visibilite saVisibilite, String nomTableau, String categorieTableau, String imageTableau) {
+
+	// Ajouter un espace de travail et tous les membres de cet espace au Tableau
+	public void ajouterEspaceTravail(EspaceTravail e){
+		this.sonEspaceTravail=e;
+		e.ajouterTableau(this);
+		for (Membre m : e.getSesMembres()){
+			this.ajouterMembre(m);
+		}
+	}
+	public Tableau(ArrayList<Liste> sesListes, EspaceTravail sonEspaceTravail, ArrayList<Membre> sesMembres, Visibilite saVisibilite, String nomTableau, String categorieTableau, String imageTableau) {
 		this.sesListes = sesListes;
-		this.SonEspaceDeTravail = SonEspaceDeTravail;
+		this.sonEspaceTravail = sonEspaceTravail;
 		this.sesMembres = sesMembres;
 		this.saVisibilite = saVisibilite;
 		this.numTableau = compteurNum++;
@@ -46,8 +53,8 @@ public class Tableau {
 		return sesListes;
 	}
 
-	public EspaceDeTravail getSonEspaceDeTravail() {
-		return SonEspaceDeTravail;
+	public EspaceTravail getSonEspaceDeTravail() {
+		return sonEspaceTravail;
 	}
 
 	public ArrayList<Membre> getSesMembres() {
@@ -76,8 +83,8 @@ public class Tableau {
 	
 	// Setter
 
-	public void setSonEspaceDeTravail(EspaceDeTravail sonEspaceDeTravail) {
-		SonEspaceDeTravail = sonEspaceDeTravail;
+	public void setSonEspaceDeTravail(EspaceTravail sonEspaceTravail) {
+		this.sonEspaceTravail = sonEspaceTravail;
 	}
 
 	public void setSaVisibilite(Visibilite saVisibilite) {
@@ -116,7 +123,7 @@ public class Tableau {
 	public String toString() {
 		return "Tableau{" +
 				"sesListes=" + sesListes +
-				", SonEspaceDeTravail=" + SonEspaceDeTravail +
+				", SonEspaceDeTravail=" + sonEspaceTravail +
 				", sesMembres=" + sesMembres +
 				", saVisibilite=" + saVisibilite +
 				", numTableau=" + numTableau +

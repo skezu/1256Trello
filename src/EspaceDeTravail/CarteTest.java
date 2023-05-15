@@ -5,11 +5,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarteTest {
     @org.junit.jupiter.api.Test
     void setSaListe() {
+        EspaceTravail e1 = new EspaceTravail();
+        Tableau t1 = new Tableau(e1);
+        Liste l1 = new Liste(t1);
+        Carte c1 = new Carte(l1);
+        c1.setSaListe(l1);
     }
 
     @org.junit.jupiter.api.Test
     void setTitreCarte() throws Exception {
-        Carte c1 = new Carte();
+        EspaceTravail e1 = new EspaceTravail();
+        Tableau t1 = new Tableau(e1);
+        Liste l1 = new Liste(t1);
+        Carte c1 = new Carte(l1);
         c1.setTitreCarte("carte test");
         String titreCarte = c1.getTitreCarte();
         assertEquals("carte test", titreCarte);
@@ -17,7 +25,10 @@ class CarteTest {
 
     @org.junit.jupiter.api.Test
     void setDescription() {
-        Carte c1 = new Carte();
+        EspaceTravail e1 = new EspaceTravail();
+        Tableau t1 = new Tableau(e1);
+        Liste l1 = new Liste(t1);
+        Carte c1 = new Carte(l1);
         c1.setDescription("description test");
         String description = c1.getDescription();
         assertEquals("description test", description);
@@ -25,7 +36,10 @@ class CarteTest {
 
     @org.junit.jupiter.api.Test
     void setDateDebut() {
-        Carte c1 = new Carte();
+        EspaceTravail e1 = new EspaceTravail();
+        Tableau t1 = new Tableau(e1);
+        Liste l1 = new Liste(t1);
+        Carte c1 = new Carte(l1);
         c1.setDateDebut("dateDebut test");
         String dateDebut = c1.getDateDebut();
         assertEquals("dateDebut test", dateDebut);
@@ -33,7 +47,10 @@ class CarteTest {
 
     @org.junit.jupiter.api.Test
     void setDateLimite() {
-        Carte c1 = new Carte();
+        EspaceTravail e1 = new EspaceTravail();
+        Tableau t1 = new Tableau(e1);
+        Liste l1 = new Liste(t1);
+        Carte c1 = new Carte(l1);
         c1.setDateLimite("dateLimite test");
         String dateLimite = c1.getDateLimite();
         assertEquals("dateLimite test", dateLimite);
@@ -42,8 +59,11 @@ class CarteTest {
 
     @org.junit.jupiter.api.Test
     void ajouterMembre() {
-        Carte c1 = new Carte();
-        Membre m1 = new Membre();
+        EspaceTravail e1 = new EspaceTravail();
+        Tableau t1 = new Tableau(e1);
+        Liste l1 = new Liste(t1);
+        Carte c1 = new Carte(l1);
+        Membre m1 = new Membre(e1);
         c1.ajouterMembre(m1);
         assertTrue(c1.getSesMembres().contains(m1));
         assertTrue(m1.getSesCartes().contains(c1));

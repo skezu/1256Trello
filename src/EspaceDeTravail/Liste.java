@@ -14,8 +14,8 @@ public class Liste {
 	private String nomListe;
 
 	// Constructeur
-	public Liste() {
-		sonTableau = new Tableau();
+	public Liste(Tableau sonTableau) {
+		this.sonTableau = sonTableau;
 		sesCartes = new ArrayList<Carte>();
 		numListe = compteurNum++;
 		nomListe = "Nouvelle Liste";

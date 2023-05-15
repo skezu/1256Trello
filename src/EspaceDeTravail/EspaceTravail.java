@@ -2,7 +2,7 @@ package EspaceDeTravail;
 
 import java.util.*;
 
-public class EspaceDeTravail {
+public class EspaceTravail {
 	// Attribut de classe
 	private static int compteurNum = 0;
 
@@ -15,7 +15,7 @@ public class EspaceDeTravail {
 	private String logoEspaceDeTravail;
 
 	// Constructeur
-	public EspaceDeTravail() {
+	public EspaceTravail() {
 		sesTableaux = new ArrayList<Tableau>();
 		sesMembres = new ArrayList<Membre>();
 		saVisibilité = new Visibilite();
@@ -24,7 +24,7 @@ public class EspaceDeTravail {
 		logoEspaceDeTravail = "";
 	}
 
-	public EspaceDeTravail(ArrayList<Tableau> sesTableaux, ArrayList<Membre> sesMembres, Visibilite saVisibilité, String nomEspaceDeTravail, String logoEspaceDeTravail) {
+	public EspaceTravail(ArrayList<Tableau> sesTableaux, ArrayList<Membre> sesMembres, Visibilite saVisibilité, String nomEspaceDeTravail, String logoEspaceDeTravail) {
 		this.sesTableaux = sesTableaux;
 		this.sesMembres = sesMembres;
 		this.saVisibilité = saVisibilité;

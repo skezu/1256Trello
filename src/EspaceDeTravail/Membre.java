@@ -8,7 +8,7 @@ public class Membre {
 	private static int compteurNum = 0;
 
 	// Attribut d'instance
-	private ArrayList<EspaceDeTravail> sonEspaceDeTravail;
+	private ArrayList<EspaceTravail> sonEspaceTravail;
 	private Tableau sonTableau;
 	private ArrayList<Carte> sesCartes;
 	private int numMembre;
@@ -18,9 +18,10 @@ public class Membre {
 	private String imageProfile;
 
 	// Constructor
-	public Membre() {
-		sonEspaceDeTravail = new ArrayList<EspaceDeTravail>();
-		sonTableau = new Tableau();
+	public Membre(EspaceTravail sonEspaceTravail) {
+		this.sonEspaceTravail = new ArrayList<EspaceTravail>();
+		this.sonEspaceTravail.add(sonEspaceTravail);
+		sonTableau = new Tableau(sonEspaceTravail);
 		sesCartes = new ArrayList<Carte>();
 		numMembre = compteurNum++;
 		nomMembre = "user";
@@ -28,8 +29,8 @@ public class Membre {
 		emailMembre = "";
 		imageProfile = "";
 	}
-	public Membre(ArrayList<EspaceDeTravail> sonEspaceDeTravail, Tableau sonTableau, ArrayList<Carte> sesCartes, String nomMembre, String prenomMembre, String emailMembre, String imageProfile) {
-		this.sonEspaceDeTravail = sonEspaceDeTravail;
+	public Membre(ArrayList<EspaceTravail> sonEspaceTravail, Tableau sonTableau, ArrayList<Carte> sesCartes, String nomMembre, String prenomMembre, String emailMembre, String imageProfile) {
+		this.sonEspaceTravail = sonEspaceTravail;
 		this.sonTableau = sonTableau;
 		this.sesCartes = sesCartes;
 		this.numMembre = compteurNum++;
@@ -41,8 +42,8 @@ public class Membre {
 	
 	// Getter
 
-	public ArrayList<EspaceDeTravail> getSonEspaceDeTravail() {
-		return sonEspaceDeTravail;
+	public ArrayList<EspaceTravail> getSonEspaceDeTravail() {
+		return sonEspaceTravail;
 	}
 
 	public Tableau getSonTableau() {
@@ -96,27 +97,32 @@ public class Membre {
 	}
 
 	// Methodes
-	public void ajouterEspaceDeTravail(EspaceDeTravail EspaceDeTravail) {
-		this.sonEspaceDeTravail.add(EspaceDeTravail);
+	public void ajouterEspaceDeTravail(EspaceTravail EspaceTravail) {
+		this.sonEspaceTravail.add(EspaceTravail);
 	}
-	public void retirerEspaceDeTravail(EspaceDeTravail EspaceDeTravail) {
-		this.sonEspaceDeTravail.remove(EspaceDeTravail);
+	public void retirerEspaceDeTravail(EspaceTravail EspaceTravail) {
+		this.sonEspaceTravail.remove(EspaceTravail);
 	}
 	public void ajouterCarte(Carte Carte) {
-
-		this.sesCartes.add(Carte);
-		if (!Carte.getSesMembres().contains(this)) {
-			Carte.ajouterMembre(this);
+		if (!this.sesCartes.contains(Carte)) {
+			this.sesCartes.add(Carte);
+			//Carte.ajouterMembre(this);
 		}
-		;
-	}
 
+
+	}
+	public void retirerCarte(Carte Carte) {
+		if (this.sesCartes.contains(Carte)) {
+		this.sesCartes.remove(Carte);
+		//Carte.retirerMembre(this);
+	}
+	}
 	// ToString
 
 	@Override
 	public String toString() {
 		return "Membre{" +
-				"sonEspaceDeTravail=" + sonEspaceDeTravail +
+				"sonEspaceDeTravail=" + sonEspaceTravail +
 				", sonTableau=" + sonTableau +
 				", sesCartes=" + sesCartes +
 				", numMembre=" + numMembre +
