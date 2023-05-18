@@ -111,23 +111,29 @@ public class Carte {
 			Membre.retirerCarte(this);
 		}
 	}
-	public int nbMenbre(){
+	public int nbMembre(){
 		//returne le nombre de menbre de la carte
 		return sesMembres.size();
 	}
 
-	// ToString
 
+	public boolean supprimer(){
+		//supprime la carte de tout les endroit ou elle se trouve
+		saListe.retirerCarte(this);
+		return true;
+	}
+
+	// ToString
 	@Override
 	public String toString() {
-		return "Carte{" +
-				"\t-  saListe=" + saListe +"\n"+
-				"\t-   sesMembres=" + sesMembres +"\n"+
-				"\t-   numCarte=" + numCarte +"\n"+
-				"\t-   titreCarte='" + titreCarte + '\n' +
-				"\t-   description='" + description + '\n' +
-				"\t-   dateDebut='" + dateDebut + '\n' +
-				"\t-   dateLimite='" + dateLimite + '\n' +
+		return "Carte\n{\n" +
+				"\t-  saListe = " + saListe +"\n"+
+				"\t-   sesMembres = " + sesMembres +"\n"+
+				"\t-   numCarte = " + numCarte +"\n"+
+				"\t-   titreCarte = " + titreCarte + '\n' +
+				"\t-   description =" + description + '\n' +
+				"\t-   dateDebut = " + dateDebut + '\n' +
+				"\t-   dateLimite = " + dateLimite + '\n' +
 				'}';
 	}
 }

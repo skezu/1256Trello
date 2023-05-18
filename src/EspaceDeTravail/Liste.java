@@ -94,20 +94,29 @@ public class Liste {
 		return sesCartes.size();
 	}
 
-	public int nbMenbre(){
+	public int nbMembre(){
 		//returne le nombre de menbre de la liste
 		return sesMenbre.size();
 	}
 
-	// ToString
 
-	@Override
+	public boolean supprimer(){
+		//suprime la liste et tout les carte assosier
+		sonTableau.retirerListe(this);
+		for (Carte c:sesCartes) {
+			c.supprimer();
+		}
+
+		return true;
+	}
+	// ToString
+		@Override
 	public String toString() {
-		return "Liste{" +
-				"\t-   sonTableau=" + sonTableau +"\n"+
-				"\t-  sesCartes=" + sesCartes +"\n"+
-				"\t-  numListe=" + numListe +"\n"+
-				"\t-  nomListe=" + nomListe + '\n' +
+		return "Liste\n{\n" +
+				"\t-   sonTableau = " + sonTableau +"\n"+
+				"\t-  sesCartes = " + sesCartes +"\n"+
+				"\t-  numListe = " + numListe +"\n"+
+				"\t-  nomListe = " + nomListe + '\n' +
 				'}';
 	}
 }
