@@ -30,20 +30,14 @@ public class Liste {
 		this.nomListe = nomListe;
 	}
 
-	public Liste (String nomListe, Tableau sonTableau){
+	public Liste ( Tableau sonTableau,String nomListe){
 		this.sonTableau = sonTableau;
 		sesCartes = new ArrayList<Carte>();
 		sesMenbre= new ArrayList<Membre>();
 		numListe = compteurNum++;
 		this.nomListe = nomListe;
 	}
-	public Liste (){
-		//this.sonTableau = ;
-		sesCartes = new ArrayList<Carte>();
-		sesMenbre= new ArrayList<Membre>();
-		numListe = compteurNum++;
-		this.nomListe = "nomListe";
-	}
+
 	
 	// Getter
 
@@ -95,15 +89,25 @@ public class Liste {
 		this.sesCartes.remove(Carte);
 	}
 
+	public int nbCarte(){
+		//returne le nombre de carte dans la liste
+		return sesCartes.size();
+	}
+
+	public int nbMenbre(){
+		//returne le nombre de menbre de la liste
+		return sesMenbre.size();
+	}
+
 	// ToString
 
 	@Override
 	public String toString() {
 		return "Liste{" +
-				"sonTableau=" + sonTableau +
-				", sesCartes=" + sesCartes +
-				", numListe=" + numListe +
-				", nomListe='" + nomListe + '\'' +
+				"\t-   sonTableau=" + sonTableau +"\n"+
+				"\t-  sesCartes=" + sesCartes +"\n"+
+				"\t-  numListe=" + numListe +"\n"+
+				"\t-  nomListe=" + nomListe + '\n' +
 				'}';
 	}
 }
