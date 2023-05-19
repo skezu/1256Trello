@@ -1,6 +1,7 @@
 package Controller;
 
 import EspaceDeTravail.EspaceTravail;
+import Trello.AppliTrelloLite;
 import Views.EspaceTravailView;
 
 import javax.swing.*;
@@ -41,6 +42,19 @@ public class EspaceTravailController extends JPanel implements ActionListener {
         // Cree les boutons
         _btnMembres = new JButton("Membres");
         _btnTableaux = new JButton("Tableaux");
+        // Style les boutons
+        _btnMembres.setBackground(AppliTrelloLite.navBorderColor);
+        _btnTableaux.setBackground(AppliTrelloLite.navBorderColor);
+        _btnMembres.setForeground(AppliTrelloLite.navTextColor);
+        _btnTableaux.setForeground(AppliTrelloLite.navTextColor);
+        _btnMembres.setBorderPainted(false);
+        _btnTableaux.setBorderPainted(false);
+        
+
+        // Set preferred width
+        Dimension preferredSize = new Dimension(300, _btnMembres.getPreferredSize().height);
+        _btnMembres.setPreferredSize(preferredSize);
+        _btnTableaux.setPreferredSize(preferredSize);
         // Prepare la gestion des clics sur les boutons
         _btnMembres.setActionCommand(ACTION_EDIT_MEMBRES);
         _btnTableaux.setActionCommand(ACTION_EDIT_TABLEAUX);
@@ -55,6 +69,7 @@ public class EspaceTravailController extends JPanel implements ActionListener {
         pnlBoutons.setLayout(new GridLayout(2,1));
         // Ajout du panel des boutons
         add(pnlBoutons);
+        setBackground(AppliTrelloLite.navBorderColor);
 
 
 

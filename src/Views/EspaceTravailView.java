@@ -1,5 +1,6 @@
 package Views;
 import EspaceDeTravail.EspaceTravail;
+import Trello.AppliTrelloLite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,11 +35,12 @@ public class EspaceTravailView extends JPanel {
         lblNomEspaceDeTravail = new JLabel();
         lblTableauxBlocTitre = new JLabel();
         lblTableauxBlocTitre.setText("Vos Tableaux");
-        lblVisibilite = new JLabel();
+        lblNomEspaceDeTravail.setForeground(AppliTrelloLite.navTextColor);
+        lblTableauxBlocTitre.setForeground(AppliTrelloLite.navTextColor);
         add(lblNomEspaceDeTravail);
         add(lblTableauxBlocTitre);
-        add(lblVisibilite);
         setLayout(new GridLayout(3,1));
+        setBackground(AppliTrelloLite.navBorderColor);
         redessiner();
     }
 
@@ -58,13 +60,13 @@ public class EspaceTravailView extends JPanel {
             // Recuperer le logo de l'espace de travail du modele
             String logoEspaceDeTravail = _modele.getLogoEspaceDeTravail();
             // Recuperer la visibilite de l'espace de travail du modele
-            String visibiliteEspaceDeTravail = _modele.getSaVisibilité().toString(); // <- faire en sorte d'avoir un visibilite.getNom()
+            //String visibiliteEspaceDeTravail = _modele.getSaVisibilité().toString(); // <- faire en sorte d'avoir un visibilite.getNom()
 
             // Afficher le nom de l'espace de travail
             lblNomEspaceDeTravail.setText(titreEspaceDeTravail);
             // Afficher le logo de l'espace de travail
             // TODO : Afficher le logo de l'espace de travail
             // Afficher la visibilite de l'espace de travail
-            lblVisibilite.setText(visibiliteEspaceDeTravail);
+            //lblVisibilite.setText(visibiliteEspaceDeTravail);
         }
 }

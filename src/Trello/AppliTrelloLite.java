@@ -8,9 +8,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AppliTrelloLite {
+    public static Color transparentColor = new Color(0,0,0,0);
+    public static Color navBorderColor = new Color(49, 134, 188);
+    public static Color navTextColor = new Color(225, 225, 225);
+    public static Color mainTrelloColor = new Color(28,90,128);
     public static void main(String[] args) {
         // Creer une fenetre pour l'application
         JFrame frame = new JFrame();
+        //frame.setBackground(mainTrelloColor);
+
+        // Header de la fenetre
+        frame.setTitle("Lite+ de Trello");
 
         // Modele espace de travail
         EspaceTravail espace1 = new EspaceTravail();
