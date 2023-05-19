@@ -16,11 +16,20 @@ public class Carte {
 	private String dateLimite;
 	
 	// Constructor 
-	public Carte(){
-		saListe = new Liste();
+	public Carte(Liste saListe){
+		this.saListe = saListe;
 		sesMembres = new ArrayList<Membre>();
 		numCarte = compteurNum++;
 		titreCarte = "Nouvelle Carte";
+		description = "";
+		dateDebut = "";
+		dateLimite = "";
+	}
+	public Carte(Liste saListe, String titreCarte){
+		this.saListe = saListe;
+		sesMembres = new ArrayList<Membre>();
+		numCarte = compteurNum++;
+		this.titreCarte = titreCarte;
 		description = "";
 		dateDebut = "";
 		dateLimite = "";
@@ -102,19 +111,29 @@ public class Carte {
 			Membre.retirerCarte(this);
 		}
 	}
+	public int nbMembre(){
+		//returne le nombre de menbre de la carte
+		return sesMembres.size();
+	}
+
+
+	public boolean supprimer(){
+		//supprime la carte de tout les endroit ou elle se trouve
+		saListe.retirerCarte(this);
+		return true;
+	}
 
 	// ToString
-
 	@Override
 	public String toString() {
-		return "Carte{" +
-				"saListe=" + saListe +
-				", sesMembres=" + sesMembres +
-				", numCarte=" + numCarte +
-				", titreCarte='" + titreCarte + '\'' +
-				", description='" + description + '\'' +
-				", dateDebut='" + dateDebut + '\'' +
-				", dateLimite='" + dateLimite + '\'' +
+		return "Carte\n{\n" +
+				"\t-  saListe = " + saListe +"\n"+
+				"\t-   sesMembres = " + sesMembres +"\n"+
+				"\t-   numCarte = " + numCarte +"\n"+
+				"\t-   titreCarte = " + titreCarte + '\n' +
+				"\t-   description =" + description + '\n' +
+				"\t-   dateDebut = " + dateDebut + '\n' +
+				"\t-   dateLimite = " + dateLimite + '\n' +
 				'}';
 	}
 }

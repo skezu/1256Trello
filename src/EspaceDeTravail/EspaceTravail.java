@@ -84,25 +84,49 @@ public class EspaceTravail {
 		this.sesTableaux.remove(Tableau);
 	}
 	// Ajouter un membre
-	public void ajouterMembre(Membre Membre) {
-		this.sesMembres.add(Membre);
+
+	public void ajouterMembre(Membre m){
+		sesMembres.add(m);
+		for (Tableau t:sesTableaux) {
+			t.ajouterMembre(m);
+		}
 	}
-	// Retirer un membre
-	public void retirerMembre(Membre Membre) {
-		this.sesMembres.remove(Membre);
+
+	public void retirerMembre(Membre m){
+		sesMembres.remove(m);
+		for (Tableau t:sesTableaux) {
+			t.retireMembre(m);
+		}
+	}
+
+	public int nbTableau(){
+		//retourne le nombre de tableau
+		return sesTableaux.size();
+	}
+
+	public int nbMembre(){
+		//retourne le nombre de menbre
+		return sesMembres.size();
+	}
+
+	public  boolean supprimer(){
+		for (Tableau t:sesTableaux) {
+			t.supprimer();
+		}
+		return true;
 	}
 
 	// ToString
 
 	@Override
 	public String toString() {
-		return "EspaceDeTravail{" +
-				"sesTableaux=" + sesTableaux +
-				", sesMembres=" + sesMembres +
-				", saVisibilité=" + saVisibilité +
-				", numEspaceDeTravail=" + numEspaceDeTravail +
-				", nomEspaceDeTravail='" + nomEspaceDeTravail + '\'' +
-				", logoEspaceDeTravail='" + logoEspaceDeTravail + '\'' +
+		return "EspaceDeTravail\n{\n" +
+				"\t-  sesTableaux = " + sesTableaux +"\n"+
+				"\t-  sesMembres = " + sesMembres +"\n"+
+				"\t-  saVisibilité = " + saVisibilité +"\n"+
+				"\t-  numEspaceDeTravail = " + numEspaceDeTravail +"\n"+
+				"\t-  nomEspaceDeTravail = " + nomEspaceDeTravail + '\n' +
+				"\t-  logoEspaceDeTravail = " + logoEspaceDeTravail + '\n' +
 				'}';
 	}
 }

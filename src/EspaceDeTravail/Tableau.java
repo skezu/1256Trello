@@ -20,6 +20,7 @@ public class Tableau {
 	public Tableau(EspaceTravail sonEspaceTravail) {
 		sesListes = new ArrayList<Liste>();
 		sesMembres = new ArrayList<Membre>();
+		this.sonEspaceTravail = sonEspaceTravail;
 		saVisibilite = new Visibilite();
 		numTableau = compteurNum++;
 		nomTableau = "Nouveau Tableau";
@@ -110,26 +111,50 @@ public class Tableau {
 	public void retirerListe(Liste liste) {
 		sesListes.remove(liste);
 	}
-	public void ajouterMembre(Membre membre) {
-		sesMembres.add(membre);
-	}
-	public void retirerMembre(Membre membre) {
-		sesMembres.remove(membre);
+
+	public void ajouterMembre(Membre m){
+		sesMembres.add(m);
+		for (Liste l:sesListes) {
+			l.ajouterMembre(m);
+		}
 	}
 
+	public void retireMembre(Membre m){
+		sesMembres.remove(m);
+		for (Liste l:sesListes) {
+			l.retirerMembre(m);
+		}
+	}
+
+	public int nbLsite(){
+		//retourne le nombre de liste
+		return sesListes.size();
+	}
+
+	public int nbMembre(){
+		//retoune le noubre de membre
+		return sesMembres.size();
+	}
+
+	public boolean supprimer(){
+		sonEspaceTravail.retirerTableau(this);
+		for (Liste l:sesListes) {
+			l.supprimer();
+		}
+		return true;
+	}
 	// ToString
-
 	@Override
 	public String toString() {
-		return "Tableau{" +
-				"sesListes=" + sesListes +
-				", SonEspaceDeTravail=" + sonEspaceTravail +
-				", sesMembres=" + sesMembres +
-				", saVisibilite=" + saVisibilite +
-				", numTableau=" + numTableau +
-				", nomTableau='" + nomTableau + '\'' +
-				", categorieTableau='" + categorieTableau + '\'' +
-				", imageTableau='" + imageTableau + '\'' +
+		return "Tableau\n{\n" +
+				"\t-  sesListes = " + sesListes +"\n"+
+				"\t-  SonEspaceDeTravail = " + sonEspaceTravail +"\n"+
+				"\t-  sesMembres = " + sesMembres +"\n"+
+				"\t-  saVisibilite = " + saVisibilite +"\n"+
+				"\t-  numTableau = " + numTableau +"\n"+
+				"\t-  nomTableau = " + nomTableau + '\n' +
+				"\t-  categorieTableau = " + categorieTableau + '\n' +
+				"\t-  imageTableau = " + imageTableau + '\n' +
 				'}';
 	}
 }
