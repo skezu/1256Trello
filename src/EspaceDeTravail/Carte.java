@@ -120,6 +120,9 @@ public class Carte {
 	public boolean supprimer(){
 		//supprime la carte de tout les endroit ou elle se trouve
 		saListe.retirerCarte(this);
+		for (Membre m:sesMembres) {
+			m.retirerCarte(this);
+		}
 		return true;
 	}
 
@@ -127,8 +130,8 @@ public class Carte {
 	@Override
 	public String toString() {
 		return "Carte\n{\n" +
-				"\t-  saListe = " + saListe +"\n"+
-				"\t-   sesMembres = " + sesMembres +"\n"+
+				"\t-  saListe = " + saListe.getNomListe() +"\n"+
+				"\t-   nombre de membre = " + this.nbMembre() +"\n"+
 				"\t-   numCarte = " + numCarte +"\n"+
 				"\t-   titreCarte = " + titreCarte + '\n' +
 				"\t-   description =" + description + '\n' +

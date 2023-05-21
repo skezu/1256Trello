@@ -113,16 +113,22 @@ public class Tableau {
 	}
 
 	public void ajouterMembre(Membre m){
-		sesMembres.add(m);
-		for (Liste l:sesListes) {
-			l.ajouterMembre(m);
+		if(!this.sesMembres.contains(m)) {
+			sesMembres.add(m);
+			for (Liste l : sesListes) {
+				l.ajouterMembre(m);
+			}
+			m.ajouterTableau(this);
 		}
 	}
 
 	public void retireMembre(Membre m){
-		sesMembres.remove(m);
-		for (Liste l:sesListes) {
-			l.retirerMembre(m);
+		if(this.sesMembres.contains(m)) {
+			sesMembres.remove(m);
+			for (Liste l : sesListes) {
+				l.retirerMembre(m);
+			}
+			m.retirerTableau(this);
 		}
 	}
 
@@ -141,15 +147,18 @@ public class Tableau {
 		for (Liste l:sesListes) {
 			l.supprimer();
 		}
+		for (Membre m:sesMembres) {
+			m.retirerTableau(this);
+		}
 		return true;
 	}
 	// ToString
 	@Override
 	public String toString() {
 		return "Tableau\n{\n" +
-				"\t-  sesListes = " + sesListes +"\n"+
-				"\t-  SonEspaceDeTravail = " + sonEspaceTravail +"\n"+
-				"\t-  sesMembres = " + sesMembres +"\n"+
+				"\t-  nombre de liste = " + this.nbLsite() +"\n"+
+				"\t-  SonEspaceDeTravail = " + sonEspaceTravail.getNomEspaceDeTravail() +"\n"+
+				"\t-  nombre de membre = " + this.nbMembre() +"\n"+
 				"\t-  saVisibilite = " + saVisibilite +"\n"+
 				"\t-  numTableau = " + numTableau +"\n"+
 				"\t-  nomTableau = " + nomTableau + '\n' +

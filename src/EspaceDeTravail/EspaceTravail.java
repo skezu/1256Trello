@@ -9,6 +9,7 @@ public class EspaceTravail {
 	// Attribut d'instance
 	private ArrayList<Tableau> sesTableaux;
 	private ArrayList<Membre> sesMembres;
+	private Membre sonProprietaire;
 	private Visibilite saVisibilité;
 	private int numEspaceDeTravail;
 	private String nomEspaceDeTravail;
@@ -34,6 +35,14 @@ public class EspaceTravail {
 	}
 	
 	// Getters 
+
+	public Membre getSonProprietaire() {
+		return sonProprietaire;
+	}
+	public void setSonProprietaire(Membre m){
+		sonProprietaire= m;
+		sesMembres.add(m);
+	}
 
 	public ArrayList<Tableau> getSesTableaux() {
 		return sesTableaux;
@@ -86,16 +95,22 @@ public class EspaceTravail {
 	// Ajouter un membre
 
 	public void ajouterMembre(Membre m){
-		sesMembres.add(m);
-		for (Tableau t:sesTableaux) {
-			t.ajouterMembre(m);
+		if(!this.sesMembres.contains(m)) {
+			sesMembres.add(m);
+			for (Tableau t : sesTableaux) {
+				t.ajouterMembre(m);
+			}
+			m.ajouterEspaceDeTravail(this);
 		}
 	}
 
 	public void retirerMembre(Membre m){
-		sesMembres.remove(m);
-		for (Tableau t:sesTableaux) {
-			t.retireMembre(m);
+		if(this.sesMembres.contains(m)) {
+			sesMembres.remove(m);
+			for (Tableau t : sesTableaux) {
+				t.retireMembre(m);
+			}
+			m.retirerEspaceDeTravail(this);
 		}
 	}
 
@@ -113,6 +128,9 @@ public class EspaceTravail {
 		for (Tableau t:sesTableaux) {
 			t.supprimer();
 		}
+		for (Membre m:sesMembres) {
+			m.retirerEspaceDeTravail(this);
+		}
 		return true;
 	}
 
@@ -121,8 +139,8 @@ public class EspaceTravail {
 	@Override
 	public String toString() {
 		return "EspaceDeTravail\n{\n" +
-				"\t-  sesTableaux = " + sesTableaux +"\n"+
-				"\t-  sesMembres = " + sesMembres +"\n"+
+				"\t-  nombre de tableau = " + this.nbTableau() +"\n"+
+				"\t-  nombre de membre = " + this.nbMembre() +"\n"+
 				"\t-  saVisibilité = " + saVisibilité +"\n"+
 				"\t-  numEspaceDeTravail = " + numEspaceDeTravail +"\n"+
 				"\t-  nomEspaceDeTravail = " + nomEspaceDeTravail + '\n' +

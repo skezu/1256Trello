@@ -22,6 +22,8 @@ public class TestModel {
         System.out.println(c);
         //création d'un membre a qui appartien l'espace de travaille présédent
         Membre m = new Membre(e);
+        System.out.println("-----------affichage Membre ------------");
+        System.out.println(m);
         //ajout d'une carte a la liste
         System.out.println("---------ajout d'une carte a une liste-----------");
         l.ajouterCarte(c);
@@ -61,6 +63,9 @@ public class TestModel {
         else {
             System.out.println("Erreur");
         }
+        System.out.println("--------espace de travail est il ajouter a membre---------");
+
+
         System.out.println("--------Membre ajouter a la liste---------");
         if(l.nbMembre()==1){
             System.out.println("ok");

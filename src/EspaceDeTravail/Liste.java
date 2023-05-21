@@ -68,16 +68,22 @@ public class Liste {
 	}
 
 	public void ajouterMembre(Membre m){
-		this.sesMenbre.add(m);
-		for (Carte c:sesCartes ) {
-			c.ajouterMembre(m);
+		if(! this.sesMenbre.contains(m)) {
+			this.sesMenbre.add(m);
+			for (Carte c : sesCartes) {
+				c.ajouterMembre(m);
+			}
+			m.ajouterListe(this);
 		}
 	}
 
 	public void retirerMembre(Membre m){
-		this.sesMenbre.remove(m);
-		for (Carte c:sesCartes) {
-			c.retirerMembre(m);
+		if(this.sesMenbre.contains(m)) {
+			this.sesMenbre.remove(m);
+			for (Carte c : sesCartes) {
+				c.retirerMembre(m);
+			}
+			m.retirerListe(this);
 		}
 	}
 
@@ -106,6 +112,9 @@ public class Liste {
 		for (Carte c:sesCartes) {
 			c.supprimer();
 		}
+		for (Membre m:sesMenbre) {
+			m.retirerListe(this);
+		}
 
 		return true;
 	}
@@ -113,8 +122,8 @@ public class Liste {
 		@Override
 	public String toString() {
 		return "Liste\n{\n" +
-				"\t-   sonTableau = " + sonTableau +"\n"+
-				"\t-  sesCartes = " + sesCartes +"\n"+
+				"\t-  sonTableau = " + sonTableau.getNomTableau() +"\n"+
+				"\t-  nombre de carte = " + this.nbCarte() +"\n"+
 				"\t-  numListe = " + numListe +"\n"+
 				"\t-  nomListe = " + nomListe + '\n' +
 				'}';
