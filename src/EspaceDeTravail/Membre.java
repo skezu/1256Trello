@@ -92,19 +92,24 @@ public class Membre {
 
 	// Methodes
 
-	public void creeEspaceDetravail(String nomEspaceDeTravail ){
+	public EspaceTravail creeEspaceDetravail(String nomEspaceDeTravail ){
 		EspaceTravail e =new EspaceTravail();
 		e.setSonProprietaire(this);
 		e.setNomEspaceDeTravail(nomEspaceDeTravail);
+		sesEspaceTravail.add(e);
+		return e;
 	}
-	public void creeEspaceDetravail(){
+	public EspaceTravail creeEspaceDetravail(){
 		EspaceTravail e =new EspaceTravail();
 		e.setSonProprietaire(this);
+		sesEspaceTravail.add(e);
+		return e;
 	}
 
 	public boolean detruireEspaceDeTravail(EspaceTravail e){
 		if (this.sesEspaceTravail.contains(e)){
 			e.supprimer();
+			sesEspaceTravail.remove(e);
 			return true;
 		}
 		else {
@@ -190,20 +195,21 @@ public class Membre {
 	}
 
 	public boolean supprimer(){
-		for (EspaceTravail e:sesEspaceTravail) {
-			e.supprimer();
-		}
-		for (EspaceTravail e:EspaceTravailAutre) {
-			e.supprimer();
-		}
+
 		for (Tableau t:sesTableau) {
-			t.supprimer();
+			t.retireMembre(this);
 		}
 		for (Liste l:sesListe) {
-			l.supprimer();
+			l.retirerMembre(this);
 		}
 		for (Carte c:sesCartes) {
-			c.supprimer();
+			c.retirerMembre(this);
+		}
+		for (EspaceTravail se:sesEspaceTravail) {
+			se.supprimer();
+		}
+		for (EspaceTravail e:EspaceTravailAutre) {
+			e.retirerMembre(this);
 		}
 		return true;
 	}

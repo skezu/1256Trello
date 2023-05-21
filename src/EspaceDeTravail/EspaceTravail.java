@@ -129,8 +129,12 @@ public class EspaceTravail {
 			t.supprimer();
 		}
 		for (Membre m:sesMembres) {
-			m.retirerEspaceDeTravail(this);
+			if(m!=sonProprietaire) {
+				//car sinon on ne peut pas retire l'espace de travail car il ne fait pas partie de l'ArrayList
+				m.retirerEspaceDeTravail(this);
+			}
 		}
+
 		return true;
 	}
 
