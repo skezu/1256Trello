@@ -1,7 +1,6 @@
 package Models;
 
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class EspaceTravailModel {
 	// Attribut de classe
@@ -10,6 +9,7 @@ public class EspaceTravailModel {
 	// Attribut d'instance
 	private ArrayList<TableauModel> sesTableaux;
 	private ArrayList<MembreModel> sesMembres;
+	private MembreModel sonProprietaire;
 	private VisibiliteModel saVisibilité;
 	private int numEspaceDeTravail;
 	private String nomEspaceDeTravail;
@@ -33,8 +33,16 @@ public class EspaceTravailModel {
 		this.nomEspaceDeTravail = nomEspaceDeTravail;
 		this.logoEspaceDeTravail = logoEspaceDeTravail;
 	}
-	
-	// Getters 
+
+	// Getters
+
+	public MembreModel getSonProprietaire() {
+		return sonProprietaire;
+	}
+	public void setSonProprietaire(MembreModel m){
+		sonProprietaire= m;
+		sesMembres.add(m);
+	}
 
 	public ArrayList<TableauModel> getSesTableaux() {
 		return sesTableaux;
@@ -59,7 +67,7 @@ public class EspaceTravailModel {
 	public String getLogoEspaceDeTravail() {
 		return logoEspaceDeTravail;
 	}
-	
+
 	// Setters
 
 	public void setSaVisibilité(VisibiliteModel saVisibilité) {
@@ -77,33 +85,70 @@ public class EspaceTravailModel {
 	// Methodes
 
 	// Ajouter un tableau
-	public void ajouterTableau(TableauModel TableauModel) {
-		this.sesTableaux.add(TableauModel);
+	public void ajouterTableau(TableauModel Tableau) {
+		this.sesTableaux.add(Tableau);
 	}
 	// Retirer un tableau
-	public void retirerTableau(TableauModel TableauModel) {
-		this.sesTableaux.remove(TableauModel);
+	public void retirerTableau(TableauModel Tableau) {
+		this.sesTableaux.remove(Tableau);
 	}
 	// Ajouter un membre
-	public void ajouterMembre(MembreModel MembreModel) {
-		this.sesMembres.add(MembreModel);
+
+	public void ajouterMembre(MembreModel m){
+		if(!this.sesMembres.contains(m)) {
+			sesMembres.add(m);
+			for (TableauModel t : sesTableaux) {
+				t.ajouterMembre(m);
+			}
+			m.ajouterEspaceDeTravail(this);
+		}
 	}
-	// Retirer un membre
-	public void retirerMembre(MembreModel MembreModel) {
-		this.sesMembres.remove(MembreModel);
+
+	public void retirerMembre(MembreModel m){
+		if(this.sesMembres.contains(m)) {
+			sesMembres.remove(m);
+			for (TableauModel t : sesTableaux) {
+				t.retireMembre(m);
+			}
+			m.retirerEspaceDeTravail(this);
+		}
+	}
+
+	public int nbTableau(){
+		//retourne le nombre de tableau
+		return sesTableaux.size();
+	}
+
+	public int nbMembre(){
+		//retourne le nombre de menbre
+		return sesMembres.size();
+	}
+
+	public  boolean supprimer(){
+		for (TableauModel t:sesTableaux) {
+			t.supprimer();
+		}
+		for (MembreModel m:sesMembres) {
+			if(m!=sonProprietaire) {
+				//car sinon on ne peut pas retire l'espace de travail car il ne fait pas partie de l'ArrayList
+				m.retirerEspaceDeTravail(this);
+			}
+		}
+
+		return true;
 	}
 
 	// ToString
 
 	@Override
 	public String toString() {
-		return "EspaceDeTravail{" +
-				"sesTableaux=" + sesTableaux +
-				", sesMembres=" + sesMembres +
-				", saVisibilité=" + saVisibilité +
-				", numEspaceDeTravail=" + numEspaceDeTravail +
-				", nomEspaceDeTravail='" + nomEspaceDeTravail + '\'' +
-				", logoEspaceDeTravail='" + logoEspaceDeTravail + '\'' +
+		return "EspaceDeTravail\n{\n" +
+				"\t-  nombre de tableau = " + this.nbTableau() +"\n"+
+				"\t-  nombre de membre = " + this.nbMembre() +"\n"+
+				"\t-  saVisibilité = " + saVisibilité +"\n"+
+				"\t-  numEspaceDeTravail = " + numEspaceDeTravail +"\n"+
+				"\t-  nomEspaceDeTravail = " + nomEspaceDeTravail + '\n' +
+				"\t-  logoEspaceDeTravail = " + logoEspaceDeTravail + '\n' +
 				'}';
 	}
 }

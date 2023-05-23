@@ -1,6 +1,6 @@
 package Models;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class MembreModel {
 
@@ -8,8 +8,10 @@ public class MembreModel {
 	private static int compteurNum = 0;
 
 	// Attribut d'instance
-	private ArrayList<EspaceTravailModel> sonEspaceTravail;
-	private TableauModel sonTableauModel;
+	private ArrayList<EspaceTravailModel> sesEspaceTravail;
+	private ArrayList<EspaceTravailModel> EspaceTravailAutre;
+	private ArrayList<TableauModel> sesTableau;
+	private ArrayList<ListeModel> sesListe;
 	private ArrayList<CarteModel> sesCartes;
 	private int numMembre;
 	private String nomMembre;
@@ -19,36 +21,31 @@ public class MembreModel {
 
 	// Constructor
 	public MembreModel(EspaceTravailModel sonEspaceTravail) {
-		this.sonEspaceTravail = new ArrayList<EspaceTravailModel>();
-		this.sonEspaceTravail.add(sonEspaceTravail);
-		sonTableauModel = new TableauModel(sonEspaceTravail);
+		this.EspaceTravailAutre = new ArrayList<EspaceTravailModel>();
+		this.sesEspaceTravail =new ArrayList<EspaceTravailModel>();
+		this.sesEspaceTravail.add(sonEspaceTravail);
+		sesTableau = new ArrayList<TableauModel>();
+		sesListe = new ArrayList<ListeModel>();
 		sesCartes = new ArrayList<CarteModel>();
 		numMembre = compteurNum++;
 		nomMembre = "user";
 		prenomMembre = "user";
 		emailMembre = "";
 		imageProfile = "";
+		sonEspaceTravail.setSonProprietaire(this);
 	}
-	public MembreModel(ArrayList<EspaceTravailModel> sonEspaceTravail, TableauModel sonTableauModel, ArrayList<CarteModel> sesCartes, String nomMembre, String prenomMembre, String emailMembre, String imageProfile) {
-		this.sonEspaceTravail = sonEspaceTravail;
-		this.sonTableauModel = sonTableauModel;
-		this.sesCartes = sesCartes;
-		this.numMembre = compteurNum++;
-		this.nomMembre = nomMembre;
-		this.prenomMembre = prenomMembre;
-		this.emailMembre = emailMembre;
-		this.imageProfile = imageProfile;
-	}
-	
+
 	// Getter
 
-	public ArrayList<EspaceTravailModel> getSonEspaceDeTravail() {
-		return sonEspaceTravail;
+	public ArrayList<EspaceTravailModel> getSesEspaceDeTravail() {
+		return sesEspaceTravail;
+	}
+	public ArrayList<EspaceTravailModel> getSesAutreEspaceTravail(){ return  EspaceTravailAutre;}
+	public ArrayList<TableauModel> getSesTableau() {
+		return sesTableau;
 	}
 
-	public TableauModel getSonTableau() {
-		return sonTableauModel;
-	}
+	public ArrayList<ListeModel> getSesListe() { return sesListe;}
 
 	public ArrayList<CarteModel> getSesCartes() {
 		return sesCartes;
@@ -73,12 +70,9 @@ public class MembreModel {
 	public String getImageProfile() {
 		return imageProfile;
 	}
-	
+
 	// Setter
 
-	public void setSonTableau(TableauModel sonTableauModel) {
-		this.sonTableauModel = sonTableauModel;
-	}
 
 	public void setNomMembre(String nomMembre) {
 		this.nomMembre = nomMembre;
@@ -97,39 +91,143 @@ public class MembreModel {
 	}
 
 	// Methodes
-	public void ajouterEspaceDeTravail(EspaceTravailModel EspaceTravailModel) {
-		this.sonEspaceTravail.add(EspaceTravailModel);
+
+	public EspaceTravailModel creeEspaceDetravail(String nomEspaceDeTravail ){
+		EspaceTravailModel e =new EspaceTravailModel();
+		e.setSonProprietaire(this);
+		e.setNomEspaceDeTravail(nomEspaceDeTravail);
+		sesEspaceTravail.add(e);
+		return e;
 	}
-	public void retirerEspaceDeTravail(EspaceTravailModel EspaceTravailModel) {
-		this.sonEspaceTravail.remove(EspaceTravailModel);
+	public EspaceTravailModel creeEspaceDetravail(){
+		EspaceTravailModel e =new EspaceTravailModel();
+		e.setSonProprietaire(this);
+		sesEspaceTravail.add(e);
+		return e;
 	}
-	public void ajouterCarte(CarteModel CarteModel) {
-		if (!this.sesCartes.contains(CarteModel)) {
-			this.sesCartes.add(CarteModel);
-			//CarteModel.ajouterMembre(this);
+
+	public boolean detruireEspaceDeTravail(EspaceTravailModel e){
+		if (this.sesEspaceTravail.contains(e)){
+			e.supprimer();
+			sesEspaceTravail.remove(e);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	public void ajouterEspaceDeTravail(EspaceTravailModel E) {
+		if(!this.EspaceTravailAutre.contains(E)){
+			this.EspaceTravailAutre.add(E);
+			E.ajouterMembre(this);
+		}
+	}
+	public void retirerEspaceDeTravail(EspaceTravailModel E) {
+		if(!this.EspaceTravailAutre.contains(E)) {
+			this.EspaceTravailAutre.remove(E);
+			E.retirerMembre(this);
+		}
+	}
+	public void ajouterCarte(CarteModel Carte) {
+		if (!this.sesCartes.contains(Carte)) {
+			this.sesCartes.add(Carte);
+			Carte.ajouterMembre(this);
 		}
 
 
 	}
-	public void retirerCarte(CarteModel CarteModel) {
-		if (this.sesCartes.contains(CarteModel)) {
-		this.sesCartes.remove(CarteModel);
-		//CarteModel.retirerMembre(this);
+	public void retirerCarte(CarteModel Carte) {
+		if (this.sesCartes.contains(Carte)) {
+			this.sesCartes.remove(Carte);
+			Carte.retirerMembre(this);
+		}
 	}
-	}
-	// ToString
 
+	public void ajouterTableau(TableauModel t){
+		if (!this.sesTableau.contains(t)){
+			this.sesTableau.add(t);
+			t.ajouterMembre(this);
+		}
+	}
+
+	public void retirerTableau(TableauModel t){
+		if(this.sesTableau.contains(t)){
+			this.sesTableau.remove(t);
+			t.retireMembre(this);
+		}
+	}
+
+	public void ajouterListe(ListeModel l){
+		if(!this.sesListe.contains(l)){
+			this.sesListe.add(l);
+			l.ajouterMembre(this);
+		}
+	}
+
+	public void retirerListe(ListeModel l){
+		if (this.sesListe.contains(l)){
+			this.sesListe.remove(l);
+			l.retirerMembre(this);
+		}
+	}
+
+	public int nbAutreEspaceTravail(){
+		//retourne le nombre d'espace de travail autre que le sien
+		return EspaceTravailAutre.size();
+	}
+
+	public int nbTableau(){
+		//retourne le nombre de tableau
+		return sesTableau.size();
+	}
+	public int nbListe(){
+		//retoune le nombre de liste
+		return sesListe.size();
+	}
+
+	public int nbCarte(){
+		//retourne le nombre de carte
+		return sesCartes.size();
+	}
+	public int nbEspaceDetravail(){
+		//retourne son nombre d'espace de travail qui lui appartienne
+		return sesEspaceTravail.size();
+	}
+
+	public boolean supprimer(){
+
+		for (TableauModel t:sesTableau) {
+			t.retireMembre(this);
+		}
+		for (ListeModel l:sesListe) {
+			l.retirerMembre(this);
+		}
+		for (CarteModel c:sesCartes) {
+			c.retirerMembre(this);
+		}
+		for (EspaceTravailModel se:sesEspaceTravail) {
+			se.supprimer();
+		}
+		for (EspaceTravailModel e:EspaceTravailAutre) {
+			e.retirerMembre(this);
+		}
+		return true;
+	}
+
+	// ToString
 	@Override
 	public String toString() {
-		return "Membre{" +
-				"sonEspaceDeTravail=" + sonEspaceTravail +
-				", sonTableau=" + sonTableauModel +
-				", sesCartes=" + sesCartes +
-				", numMembre=" + numMembre +
-				", nomMembre='" + nomMembre + '\'' +
-				", prenomMembre='" + prenomMembre + '\'' +
-				", emailMembre='" + emailMembre + '\'' +
-				", imageProfile='" + imageProfile + '\'' +
+		return "Membre\n{\n" +
+				"\t-  nombre d'espace de travail = " + this.nbEspaceDetravail() +"\n"+
+				"\t-  son nombre d'autre espace de travail = " + this.nbAutreEspaceTravail() +"\n"+
+				"\t-  son nombre de tableau = " + this.nbTableau() +"\n"+
+				"\t-  son nombre de liste = " + this.nbListe() +"\n"+
+				"\t-  son nombre de carte = " + this.nbCarte() +"\n"+
+				"\t-  numMembre = " + numMembre +"\n"+
+				"\t-  nomMembre = " + nomMembre + "\n"+
+				"\t-  prenomMembre = " + prenomMembre +"\n"+
+				"\t-  emailMembre = " + emailMembre + "\n"+
+				"\t-  imageProfile = " + imageProfile + "\n"+
 				'}';
 	}
 }

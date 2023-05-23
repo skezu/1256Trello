@@ -1,6 +1,5 @@
 package Models;
 
-
 import java.util.*;
 
 public class CarteModel {
@@ -22,6 +21,15 @@ public class CarteModel {
         sesMembres = new ArrayList<MembreModel>();
         numCarte = compteurNum++;
         titreCarte = "Nouvelle Carte";
+        description = "";
+        dateDebut = "";
+        dateLimite = "";
+    }
+    public CarteModel(ListeModel saListe, String titreCarte){
+        this.saListe = saListe;
+        sesMembres = new ArrayList<MembreModel>();
+        numCarte = compteurNum++;
+        this.titreCarte = titreCarte;
         description = "";
         dateDebut = "";
         dateLimite = "";
@@ -91,31 +99,44 @@ public class CarteModel {
     }
 
     // Methodes
-    public void ajouterMembre(MembreModel MembreModel) {
-        if (!MembreModel.getSesCartes().contains(this)) {
-            this.sesMembres.add(MembreModel);
-            MembreModel.ajouterCarte(this);
+    public void ajouterMembre(MembreModel Membre) {
+        if (!Membre.getSesCartes().contains(this)) {
+            this.sesMembres.add(Membre);
+            Membre.ajouterCarte(this);
         }
     }
-    public void retirerMembre(MembreModel MembreModel){
-        if (MembreModel.getSesCartes().contains(this)) {
-            this.sesMembres.remove(MembreModel);
-            MembreModel.retirerCarte(this);
+    public void retirerMembre(MembreModel Membre){
+        if (Membre.getSesCartes().contains(this)) {
+            this.sesMembres.remove(Membre);
+            Membre.retirerCarte(this);
         }
+    }
+    public int nbMembre(){
+        //returne le nombre de menbre de la carte
+        return sesMembres.size();
+    }
+
+
+    public boolean supprimer(){
+        //supprime la carte de tout les endroit ou elle se trouve
+        saListe.retirerCarte(this);
+        for (MembreModel m:sesMembres) {
+            m.retirerCarte(this);
+        }
+        return true;
     }
 
     // ToString
-
     @Override
     public String toString() {
-        return "Carte{" +
-                "saListe=" + saListe +
-                ", sesMembres=" + sesMembres +
-                ", numCarte=" + numCarte +
-                ", titreCarte='" + titreCarte + '\'' +
-                ", description='" + description + '\'' +
-                ", dateDebut='" + dateDebut + '\'' +
-                ", dateLimite='" + dateLimite + '\'' +
+        return "Carte\n{\n" +
+                "\t-  saListe = " + saListe.getNomListe() +"\n"+
+                "\t-   nombre de membre = " + this.nbMembre() +"\n"+
+                "\t-   numCarte = " + numCarte +"\n"+
+                "\t-   titreCarte = " + titreCarte + '\n' +
+                "\t-   description =" + description + '\n' +
+                "\t-   dateDebut = " + dateDebut + '\n' +
+                "\t-   dateLimite = " + dateLimite + '\n' +
                 '}';
     }
 }
