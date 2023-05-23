@@ -1,8 +1,8 @@
 package EspaceDeTravail;
 
-//import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-class CarteTest {/*
+class CarteTest {
     @org.junit.jupiter.api.Test
     void setSaListe() {
         EspaceTravail e1 = new EspaceTravail();
@@ -73,5 +73,5 @@ class CarteTest {/*
     void testToString() {
         //Generate a test of a toString
 
-    }*/
+    }
 }

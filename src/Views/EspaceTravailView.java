@@ -1,5 +1,8 @@
 package Views;
+import Controller.EspaceTravailController;
 import EspaceDeTravail.EspaceTravail;
+import EspaceDeTravail.Objets;
+import EspaceDeTravail.Tableau;
 import Trello.AppliTrelloLite;
 
 import javax.swing.*;
@@ -15,10 +18,13 @@ public class EspaceTravailView extends JPanel {
 
     // Label affichant le nom de l'espace de travail
     private JLabel lblNomEspaceDeTravail;
-    // Label indiquant qu'il y a une liste de tableaux
-    private JLabel lblTableauxBlocTitre;
     // Label affichant la visibilite de l'espace de travail
     private JLabel lblVisibilite;
+
+    // Panel pour organiser la page
+    private JPanel pnlHeader;
+    private JPanel pnlBody;
+    private JPanel pnlAside;
 
 
     /**
@@ -32,17 +38,61 @@ public class EspaceTravailView extends JPanel {
         // Memorise le modele associe a la vue
         _modele = modele;
         // Cree la vue graphique sur ce modele
+        ///
+        // Header
+        ///
+        pnlHeader = new JPanel();
+        pnlHeader.setBackground(AppliTrelloLite.mainTrelloColor);
+
+        ///
+        // Body
+        ///
+        Tableau tableau = new Tableau(_modele);
+        TableauView tableauView = new TableauView(tableau);
+        JPanel pnlTableau = new JPanel();
+        pnlTableau.add(tableauView);
+
+        pnlBody = new JPanel();
+        pnlBody.setBackground(AppliTrelloLite.greyPanelColor);
+        pnlBody.setLayout(new BorderLayout());
+
+        setPage(pnlTableau);
+
+        ///
+        // Aside
+        ///
+        pnlAside = new JPanel();
+        pnlAside.setBackground(AppliTrelloLite.navBorderColor);
+        //pnlAside.setLayout(new GridLayout(8,1));
+
+
+        // Composants
         lblNomEspaceDeTravail = new JLabel();
-        lblTableauxBlocTitre = new JLabel();
-        lblTableauxBlocTitre.setText("Vos Tableaux");
         lblNomEspaceDeTravail.setForeground(AppliTrelloLite.navTextColor);
-        lblTableauxBlocTitre.setForeground(AppliTrelloLite.navTextColor);
-        add(lblNomEspaceDeTravail);
-        add(lblTableauxBlocTitre);
-        setLayout(new GridLayout(3,1));
+        pnlHeader.add(lblNomEspaceDeTravail);
+
+        /// Format page
+        setLayout(new BorderLayout());
+        add(pnlHeader, BorderLayout.PAGE_START);
+        add(pnlBody, BorderLayout.CENTER);
+        add(pnlAside, BorderLayout.LINE_START);
         setBackground(AppliTrelloLite.navBorderColor);
         redessiner();
     }
+
+        ////////////////////////////////
+        //          Methodes          //
+        ////////////////////////////////
+
+        public void ajouterHeader(EspaceTravailController c){
+        pnlHeader.add(c);
+        }
+        public void setPage(JPanel p){
+            pnlBody.add(p, BorderLayout.CENTER);
+        }
+        public void ajouterAside(JPanel p){
+            pnlAside.add(p);
+        }
 
         // -----------------------------
         // ||    MAJ de l'affichage   ||

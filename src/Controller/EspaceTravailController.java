@@ -66,7 +66,7 @@ public class EspaceTravailController extends JPanel implements ActionListener {
         pnlBoutons.add(_btnMembres);
         pnlBoutons.add(_btnTableaux);
         // Met un bouton en dessous de l'autre
-        pnlBoutons.setLayout(new GridLayout(2,1));
+        pnlBoutons.setLayout(new GridLayout(1,2));
         // Ajout du panel des boutons
         add(pnlBoutons);
         setBackground(AppliTrelloLite.navBorderColor);

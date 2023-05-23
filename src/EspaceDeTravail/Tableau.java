@@ -21,6 +21,7 @@ public class Tableau {
 		sesListes = new ArrayList<Liste>();
 		sesMembres = new ArrayList<Membre>();
 		this.sonEspaceTravail = sonEspaceTravail;
+		sonEspaceTravail.ajouterTableau(this);
 		saVisibilite = new Visibilite();
 		numTableau = compteurNum++;
 		nomTableau = "Nouveau Tableau";
@@ -39,6 +40,7 @@ public class Tableau {
 	public Tableau(ArrayList<Liste> sesListes, EspaceTravail sonEspaceTravail, ArrayList<Membre> sesMembres, Visibilite saVisibilite, String nomTableau, String categorieTableau, String imageTableau) {
 		this.sesListes = sesListes;
 		this.sonEspaceTravail = sonEspaceTravail;
+		sonEspaceTravail.ajouterTableau(this);
 		this.sesMembres = sesMembres;
 		this.saVisibilite = saVisibilite;
 		this.numTableau = compteurNum++;

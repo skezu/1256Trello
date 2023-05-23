@@ -1,51 +1,102 @@
 package Views;
 
-import Models.CarteModel;
+import EspaceDeTravail.Carte;
+import EspaceDeTravail.EspaceTravail;
+import EspaceDeTravail.Membre;
+import Trello.AppliTrelloLite;
 
 import javax.swing.*;
 import java.awt.*;
-public class CarteView extends JPanel {
-    private CarteModel carteModel;
-    private JFrame frame;
-    private JLabel titleLabel;
-    private JTextArea descriptionTextArea;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-    public CarteView(CarteModel carteModel) {
-        this.carteModel = carteModel;
+public class CarteView extends JDialog {
+    /**
+     * -----------------------------
+     * ||         Attributs       ||
+     * -----------------------------
+     */
+    Carte _modele;
 
-        // Create the frame
-        frame = new JFrame("Carte Details");
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // Label affichant les infos de la carte
+    private JLabel lblTitre;
+    private JLabel lblDescription;
+    private JLabel lblSaListe;
+    private JLabel lblDateDebut;
+    private JLabel lblDateFin;
+    private JList lstMembres;
 
-        // Create the title label
-        titleLabel = new JLabel(carteModel.getTitreCarte());
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Create the description text area
-        descriptionTextArea = new JTextArea(carteModel.getDescription());
-        descriptionTextArea.setEditable(false);
-        descriptionTextArea.setLineWrap(true);
-        descriptionTextArea.setWrapStyleWord(true);
-        JScrollPane scrollPane = new JScrollPane(descriptionTextArea);
 
-        // Add components to the frame
-        frame.setLayout(new BorderLayout());
-        frame.add(titleLabel, BorderLayout.NORTH);
-        frame.add(scrollPane, BorderLayout.CENTER);
+    /**
+     * Constructeur de la classe CarteView.
+     *
+     * @param  modele  Le modele de la carte a associer a la vue.
+     * @return         None
+     */
 
-        // Show the frame
-        frame.setVisible(true);
+    public CarteView(Carte modele) {
+        // Memorise le modele associe a la vue
+        _modele = modele;
+        // Cree la vue graphique sur ce modele
+        lblTitre = new JLabel();
+        JLabel lblHDescription = new JLabel("Description");
+        lblDescription = new JLabel();
+        lblSaListe = new JLabel();
+        lblDateDebut = new JLabel();
+        lblDateFin = new JLabel();
+        lstMembres = new JList();
+        // Ajout des elements graphiques
+        add(lblTitre);
+        add(lblSaListe);
+        add(lblHDescription);
+        add(lblDescription);
+        add(lblDateDebut);
+        add(lblDateFin);
+        add(lstMembres);
+        // Affichage du composant graphique
+        // Définition de la taille du JDialog
+        int dialogWidth = AppliTrelloLite.FRAME_WIDTH - 200;
+        int dialogHeight = AppliTrelloLite.FRAME_HEIGHT - 100;
+        int dialogMinWidth = 700;
+        int dialogMinHeight = 600;
+        Dimension cardSize = new Dimension(dialogWidth, dialogHeight);
+        Dimension minCardSize = new Dimension(dialogMinWidth, dialogMinHeight);
+        setSize(dialogWidth, dialogHeight);
+        setMaximumSize(cardSize);
+        setMinimumSize(minCardSize);
+        //
+        setLayout(new GridLayout(0, 1));
+        setBackground(AppliTrelloLite.whitePanelColor);
+        setVisible(false);
+        redessiner();
     }
 
-    public void updateTitle(String newTitle) {
-        carteModel.setTitreCarte(newTitle);
-        titleLabel.setText(carteModel.getTitreCarte());
-    }
+    // -----------------------------
+    // ||    MAJ de l'affichage   ||
+    // -----------------------------
 
-    public void updateDescription(String newDescription) {
-        carteModel.setDescription(newDescription);
-        descriptionTextArea.setText(carteModel.getDescription());
+    /**
+     * Redessines l'Espace de Travail avec le nom, logo, and visibilite de l'espace de travail du modele.
+     *
+     * @param
+     * @return None
+     */
+    public void redessiner() {
+        // Récupérer les données de la carte
+        String titreEspaceDeTravail = _modele.getTitreCarte();
+        String descriptionEspaceDeTravail = _modele.getDescription();
+        String dateDebutEspaceDeTravail = _modele.getDateDebut();
+        String dateFinEspaceDeTravail = _modele.getDateLimite();
+        String saListe = _modele.getSaListe().getNomListe();
+        ArrayList<Membre> membres = _modele.getSesMembres();
+
+        // Afficher les données de la carte
+        lblTitre.setText(titreEspaceDeTravail);
+        lblSaListe.setText("Dans la liste "+saListe);
+        lblDescription.setText(descriptionEspaceDeTravail);
+        lblDateDebut.setText(dateDebutEspaceDeTravail);
+        lblDateFin.setText(dateFinEspaceDeTravail);
+        lstMembres.setListData(membres.toArray());
     }
 }

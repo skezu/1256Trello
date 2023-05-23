@@ -17,6 +17,7 @@ public class Liste {
 	// Constructeur
 	public Liste(Tableau sonTableau) {
 		this.sonTableau = sonTableau;
+		sonTableau.ajouterListe(this);
 		sesCartes = new ArrayList<Carte>();
 		sesMenbre= new ArrayList<Membre>();
 		numListe = compteurNum++;
@@ -24,6 +25,7 @@ public class Liste {
 	}
 	public Liste(Tableau sonTableau, ArrayList<Carte> sesCartes, String nomListe, ArrayList<Membre> sesMenbre) {
 		this.sonTableau = sonTableau;
+		sonTableau.ajouterListe(this);
 		this.sesCartes = sesCartes;
 		this.sesMenbre = sesMenbre;
 		this.numListe = compteurNum++;
@@ -32,6 +34,7 @@ public class Liste {
 
 	public Liste ( Tableau sonTableau,String nomListe){
 		this.sonTableau = sonTableau;
+		sonTableau.ajouterListe(this);
 		sesCartes = new ArrayList<Carte>();
 		sesMenbre= new ArrayList<Membre>();
 		numListe = compteurNum++;

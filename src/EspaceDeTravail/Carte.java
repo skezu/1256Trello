@@ -18,24 +18,27 @@ public class Carte {
 	// Constructor 
 	public Carte(Liste saListe){
 		this.saListe = saListe;
+		saListe.ajouterCarte(this);
 		sesMembres = new ArrayList<Membre>();
 		numCarte = compteurNum++;
 		titreCarte = "Nouvelle Carte";
 		description = "";
-		dateDebut = "";
-		dateLimite = "";
+		dateDebut = "01/01/2023";
+		dateLimite = "28/05/2023";
 	}
 	public Carte(Liste saListe, String titreCarte){
 		this.saListe = saListe;
+		saListe.ajouterCarte(this);
 		sesMembres = new ArrayList<Membre>();
 		numCarte = compteurNum++;
 		this.titreCarte = titreCarte;
 		description = "";
-		dateDebut = "";
-		dateLimite = "";
+		dateDebut = "01/01/2023";
+		dateLimite = "28/05/2023";
 	}
-	public Carte(Liste saListe, ArrayList<Membre> sesMembres, int numCarte, String titreCarte, String description, String dateDebut, String dateLimite) {
+	public Carte(Liste saListe,String titreCarte, ArrayList<Membre> sesMembres, int numCarte, String description, String dateDebut, String dateLimite) {
 		this.saListe = saListe;
+		saListe.ajouterCarte(this);
 		this.sesMembres = sesMembres;
 		this.numCarte = numCarte;
 		this.titreCarte = titreCarte;
