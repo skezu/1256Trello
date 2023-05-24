@@ -47,16 +47,11 @@ public class EspaceTravailView extends JPanel {
         ///
         // Body
         ///
-        Tableau tableau = new Tableau(_modele);
-        TableauView tableauView = new TableauView(tableau);
-        JPanel pnlTableau = new JPanel();
-        pnlTableau.add(tableauView);
+        // body pris en charge par redessinner()
 
         pnlBody = new JPanel();
         pnlBody.setBackground(AppliTrelloLite.greyPanelColor);
         pnlBody.setLayout(new BorderLayout());
-
-        setPage(pnlTableau);
 
         ///
         // Aside
@@ -88,7 +83,8 @@ public class EspaceTravailView extends JPanel {
         pnlHeader.add(c);
         }
         public void setPage(JPanel p){
-            pnlBody.add(p, BorderLayout.CENTER);
+        pnlBody.removeAll();
+        pnlBody.add(p, BorderLayout.CENTER);
         }
         public void ajouterAside(JPanel p){
             pnlAside.add(p);
@@ -118,5 +114,17 @@ public class EspaceTravailView extends JPanel {
             // TODO : Afficher le logo de l'espace de travail
             // Afficher la visibilite de l'espace de travail
             //lblVisibilite.setText(visibiliteEspaceDeTravail);
+
+            // Afficher les tableaux de l'espace de travail
+            if (_modele.getSesTableaux() != null) {
+                Tableau tableau = _modele.getSesTableaux().get(0);
+                TableauView tableauView = new TableauView(tableau);
+                JPanel pnlTableau = new JPanel();
+                pnlTableau.add(tableauView);
+                setPage(pnlTableau);
+            }
+
+            // TODO : Faire un truc pour selectionner le tableau specifique
+
         }
 }

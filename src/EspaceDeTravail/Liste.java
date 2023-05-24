@@ -49,7 +49,7 @@ public class Liste {
 	}
 
 	public ArrayList<Carte> getSesCartes() {
-		return sesCartes;
+		return (sesCartes);
 	}
 
 	public int getNumListe() {
@@ -93,6 +93,7 @@ public class Liste {
 	// Methode
 	public void ajouterCarte(Carte Carte) {
 		this.sesCartes.add(Carte);
+		Carte.ajouterListe(this);
 	}
 	public void retirerCarte(Carte Carte) {
 		this.sesCartes.remove(Carte);

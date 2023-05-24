@@ -54,14 +54,8 @@ public class CarteController extends JPanel implements ActionListener {
         _btnCarte.setActionCommand(ACTION_EDIT_CARTE);
         // C'est CE controlleur qui va ecouter ces boutons
         _btnCarte.addActionListener(this);
-        // Ajout d'un panel du bouton
-        //TODO LATER => faire que ce panel soit celui de la liste
-        JPanel pnlBouton = new JPanel();
-        pnlBouton.add(_btnCarte);
-        // Met un bouton en dessous de l'autre
-        pnlBouton.setLayout(new GridLayout(2,1));
-        // Ajout du panel des boutons
-        add(pnlBouton);
+        // Ajout du bouton
+        add(_btnCarte);
         setBackground(AppliTrelloLite.transparentColor);
     }
 

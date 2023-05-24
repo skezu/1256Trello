@@ -21,7 +21,7 @@ public class Carte {
 		saListe.ajouterCarte(this);
 		sesMembres = new ArrayList<Membre>();
 		numCarte = compteurNum++;
-		titreCarte = "Nouvelle Carte";
+		titreCarte = "Carte Vide";
 		description = "";
 		dateDebut = "01/01/2023";
 		dateLimite = "28/05/2023";
@@ -119,7 +119,6 @@ public class Carte {
 		return sesMembres.size();
 	}
 
-
 	public boolean supprimer(){
 		//supprime la carte de tout les endroit ou elle se trouve
 		saListe.retirerCarte(this);
@@ -127,6 +126,11 @@ public class Carte {
 			m.retirerCarte(this);
 		}
 		return true;
+	}
+
+	public void ajouterListe(Liste liste){
+		this.saListe = liste;
+		// on suppose que le sens est Liste.ajouterCarte
 	}
 
 	// ToString

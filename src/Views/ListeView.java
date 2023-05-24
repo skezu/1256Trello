@@ -17,12 +17,15 @@ public class ListeView extends JPanel {
      * -----------------------------
      */
     // Modele
-    Liste _modele;
+    private Liste _modele;
     // Panel contenant les cartes
-    JPanel pnlCarte;
-
+    private JPanel pnlCarte;
+    // Model contenant la liste de cartes
+    private DefaultListModel<CarteController> model;
+    private JList<CarteController> lstCartes;
     // Labels
-    JLabel lblNomListe;
+    private JLabel lblNomListe;
+    private JPanel pnlTitre;
 
     /**
      * Constructeur de la classe ListeView.
@@ -35,15 +38,29 @@ public class ListeView extends JPanel {
         _modele = modele;
         // Cree la vue graphique sur ce modele
         pnlCarte = new JPanel();
-        pnlCarte.setBackground(Color.green);
-        pnlCarte.setLayout(new GridLayout(6,1));
         lblNomListe = new JLabel();
-        add(lblNomListe);
-        add(pnlCarte);
-        setLayout(new GridLayout(6,1));
+        pnlTitre = new JPanel();
+
+        // mise en page
+        //pnlCarte.setLayout(new BoxLayout(pnlCarte, BoxLayout.Y_AXIS));
+        pnlCarte.setLayout(new GridLayout(0,1));
+        setLayout(new BorderLayout());
+        // setup de la liste (ajout du panel pour le nom et pour les cartes)
+        pnlTitre.add(lblNomListe);
+        add(pnlTitre, BorderLayout.PAGE_START);
+        add(pnlCarte, BorderLayout.CENTER);
+
+
+
+
         setBackground(AppliTrelloLite.greyPanelColor);
         setForeground(AppliTrelloLite.textPanelColor);
+
+// Set the maximum size of pnlTitre to match the preferred size of lblNomListe
+
+
         redessiner();
+
     }
 
     ///////////////////////////////
@@ -51,12 +68,12 @@ public class ListeView extends JPanel {
     ///////////////////////////////
     public void ajouterCarte(Carte carte){
         CarteView carteView = new CarteView(carte);
-        pnlCarte.add(carteView);
+        CarteController controller = new CarteController(carte, carteView);
+        pnlCarte.add(controller);
     }
 
     // -----------------------------
     // ||    MAJ de l'affichage   ||
-    // -----------------------------
 
     /**
      * Redessines l'Espace de Travail avec le nom, logo, and visibilite de l'espace de travail du modele.
@@ -69,14 +86,12 @@ public class ListeView extends JPanel {
         String nomListe = _modele.getNomListe();
         // Afficher le nom de l'espace de travail
         lblNomListe.setText(nomListe);
-
-        Carte c = new Carte(_modele);
-        // Met a jour la liste de carte
+        // Rafraichir le panel des cartes
         pnlCarte.removeAll();
-        for (Carte carte : _modele.getSesCartes()) {
-            CarteView vue = new CarteView(carte);
-            CarteController controller = new CarteController(carte, vue);
-            add(controller);
+        // Ajouter les cartes dans la liste
+        for (Carte carte : _modele.getSesCartes()){
+            ajouterCarte(carte);
         }
     }
+    // -----------------------------
 }

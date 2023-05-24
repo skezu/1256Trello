@@ -42,7 +42,7 @@ public class ListeController extends JPanel implements ActionListener {
         _btnAjouterCarte.setBackground(AppliTrelloLite.greyPanelColor);
         _btnAjouterCarte.setForeground(AppliTrelloLite.textPanelColor);
         _btnAjouterCarte.setBorderPainted(false);
-         // Set preferred width
+         // Gestion des dimensions
         Dimension preferredSize = new Dimension(300, _btnAjouterCarte.getPreferredSize().height);
         _btnAjouterCarte.setPreferredSize(preferredSize);
         // Prepare la gestion des clics sur les boutons
@@ -61,9 +61,9 @@ public class ListeController extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(ACTION_ADD_CARTE)) {
-            //TODO ajouter une carte
             Carte nouvelleCarte = new Carte(_modele);
-            _modele.ajouterCarte(nouvelleCarte);
+           // _modele.ajouterCarte(nouvelleCarte); -- TODO trouver où on execute la meme chose
+
         }
         // Rafraichir la vue
         _vue.redessiner();

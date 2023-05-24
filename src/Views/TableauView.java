@@ -5,6 +5,7 @@ import Controller.ListeController;
 import EspaceDeTravail.Carte;
 import EspaceDeTravail.Liste;
 import EspaceDeTravail.Tableau;
+import Trello.AppliTrelloLite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,13 +33,17 @@ public class TableauView extends JPanel{
         // Set the title
         lblTitreTableau = new JLabel(_modele.getNomTableau());
 
-        // Create a panel with FlowLayout
-        pnlBody = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        // Create a panel with BoxLayout
+        pnlBody = new JPanel();
+        pnlBody.setLayout(new BoxLayout(pnlBody, BoxLayout.X_AXIS));
+        pnlBody.setAlignmentY(Component.TOP_ALIGNMENT);
+        pnlBody.setBackground(Color.DARK_GRAY);
 
         // Create a scroll pane with horizontal scrolling
         scrollPane = new JScrollPane(pnlBody,
-                JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(AppliTrelloLite.FRAME_WIDTH-100, AppliTrelloLite.FRAME_HEIGHT-200));
 
         add(lblTitreTableau, BorderLayout.PAGE_START);
         add(scrollPane, BorderLayout.CENTER);
@@ -48,6 +53,8 @@ public class TableauView extends JPanel{
 
     public void ajouterListe(Liste liste){
         ListeView listeView = new ListeView(liste);
+        ListeController listeController = new ListeController(liste,listeView);
+        listeView.add(listeController, BorderLayout.PAGE_END);
         pnlBody.add(listeView);
     }
 
@@ -60,19 +67,9 @@ public class TableauView extends JPanel{
 
         pnlBody.removeAll();
 
-        Liste liste = new Liste(_modele, "A Faire");
-        Liste liste1 = new Liste(_modele, "En Cours");
-        Liste liste2 = new Liste(_modele, "Terminee");
-        //ajouterListe(liste);
-        //ajouterListe(liste1);
-        //ajouterListe(liste2);
-
-        for (Liste l : _modele.getSesListes()) {
-            ListeView vue = new ListeView(l);
-            ListeController controller = new ListeController(l, vue);
-            vue.add(controller);
-            pnlBody.add(vue);
-
+        for (Liste l : listeTab) {
+            //pnlBody.add(new JButton("liste "+l.getNomListe()));
+            ajouterListe(l);
         }
         //pnlBody.revalidate();
         //pnlBody.repaint();

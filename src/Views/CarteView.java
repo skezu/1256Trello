@@ -1,7 +1,6 @@
 package Views;
 
 import EspaceDeTravail.Carte;
-import EspaceDeTravail.EspaceTravail;
 import EspaceDeTravail.Membre;
 import Trello.AppliTrelloLite;
 
@@ -19,8 +18,8 @@ public class CarteView extends JDialog {
     Carte _modele;
 
     // Label affichant les infos de la carte
-    private JLabel lblTitre;
-    private JLabel lblDescription;
+    private JTextField txtTitre;
+    private JTextField txtDescription;
     private JLabel lblSaListe;
     private JLabel lblDateDebut;
     private JLabel lblDateFin;
@@ -39,18 +38,18 @@ public class CarteView extends JDialog {
         // Memorise le modele associe a la vue
         _modele = modele;
         // Cree la vue graphique sur ce modele
-        lblTitre = new JLabel();
+        txtTitre = new JTextField();
         JLabel lblHDescription = new JLabel("Description");
-        lblDescription = new JLabel();
+        txtDescription = new JTextField();
         lblSaListe = new JLabel();
         lblDateDebut = new JLabel();
         lblDateFin = new JLabel();
         lstMembres = new JList();
         // Ajout des elements graphiques
-        add(lblTitre);
+        add(txtTitre);
         add(lblSaListe);
         add(lblHDescription);
-        add(lblDescription);
+        add(txtDescription);
         add(lblDateDebut);
         add(lblDateFin);
         add(lstMembres);
@@ -65,6 +64,7 @@ public class CarteView extends JDialog {
         setSize(dialogWidth, dialogHeight);
         setMaximumSize(cardSize);
         setMinimumSize(minCardSize);
+
         //
         setLayout(new GridLayout(0, 1));
         setBackground(AppliTrelloLite.whitePanelColor);
@@ -84,19 +84,37 @@ public class CarteView extends JDialog {
      */
     public void redessiner() {
         // Récupérer les données de la carte
-        String titreEspaceDeTravail = _modele.getTitreCarte();
-        String descriptionEspaceDeTravail = _modele.getDescription();
-        String dateDebutEspaceDeTravail = _modele.getDateDebut();
-        String dateFinEspaceDeTravail = _modele.getDateLimite();
+        String titreCarte = _modele.getTitreCarte();
+        String descriptionCarte = _modele.getDescription();
+        String dateDebutCarte = _modele.getDateDebut();
+        String dateFinCarte = _modele.getDateLimite();
         String saListe = _modele.getSaListe().getNomListe();
         ArrayList<Membre> membres = _modele.getSesMembres();
 
-        // Afficher les données de la carte
-        lblTitre.setText(titreEspaceDeTravail);
+
+        txtTitre.setText(titreCarte);
+        txtDescription.setText(descriptionCarte);
+
         lblSaListe.setText("Dans la liste "+saListe);
-        lblDescription.setText(descriptionEspaceDeTravail);
-        lblDateDebut.setText(dateDebutEspaceDeTravail);
-        lblDateFin.setText(dateFinEspaceDeTravail);
+
+        lblDateDebut.setText(dateDebutCarte);
+        lblDateFin.setText(dateFinCarte);
         lstMembres.setListData(membres.toArray());
+    }
+
+    // Custom method to handle modification of the txtTitre field
+    private void handleTitreModification() {
+        String titre = txtTitre.getText();
+        System.out.println("titre modif");
+        // maj du titre
+        _modele.setTitreCarte(titre);
+    }
+
+    // Custom method to handle modification of the txtDescription field
+    private void handleDescriptionModification() {
+        String description = txtDescription.getText();
+        System.out.println("desc modif");
+        // maj de la description
+        _modele.setDescription(description);
     }
 }
