@@ -67,7 +67,7 @@ public class ListeView extends JPanel {
     //          Methodes         //
     ///////////////////////////////
     public void ajouterCarte(Carte carte){
-        CarteView carteView = new CarteView(carte);
+        CarteView carteView = new CarteView(carte, this);
         CarteController controller = new CarteController(carte, carteView);
         pnlCarte.add(controller);
     }

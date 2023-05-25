@@ -1,29 +1,67 @@
 package Views;
 
+import Controller.CarteController;
 import EspaceDeTravail.Carte;
 import EspaceDeTravail.Membre;
 import Trello.AppliTrelloLite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class CarteView extends JDialog {
-    /**
-     * -----------------------------
+
+    ////////////////////////////////
+    //   Class privée (ecouteur)  //
+    ////////////////////////////////
+    private class CarteListener implements ActionListener {
+        /**
+         * Invoked when an action occurs.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals("Enregistrer"))
+                handleDescriptionModification();
+                pnlEditDescription.setVisible(false);
+                lblDescription.setVisible(true);
+            if (e.getActionCommand().equals("Annuler")) {
+                pnlEditDescription.setVisible(false);
+                lblDescription.setVisible(true);
+            }
+            if (e.getActionCommand().equals("Modifier")) {
+                pnlEditDescription.setVisible(true);
+                lblDescription.setVisible(false);
+            }
+            handleTitreModification();
+            redessiner();
+        }
+
+
+    }
+
+    /* -----------------------------
      * ||         Attributs       ||
      * -----------------------------
      */
     Carte _modele;
-
+    ListeView _liste;
     // Label affichant les infos de la carte
     private JTextField txtTitre;
-    private JTextField txtDescription;
-    private JLabel lblSaListe;
-    private JLabel lblDateDebut;
-    private JLabel lblDateFin;
+    //-- description
+    private JPanel pnlDescription, pnlEditDescription, pnlDescHeader, pnlDescFooter ;
+    private JLabel lblDescription;
+    private JTextArea txtDescription;
+    private JButton btnEnregistrerDescription, btnAnnulerDescription, btnModifierDescription;
+    // -- fin description
+    private JLabel lblSaListe, lblDateDebut, lblDateFin;
     private JList lstMembres;
+    
 
 
 
@@ -34,25 +72,70 @@ public class CarteView extends JDialog {
      * @return         None
      */
 
-    public CarteView(Carte modele) {
-        // Memorise le modele associe a la vue
+    public CarteView(Carte modele, ListeView liste) {
+        // Memorise le modele et la liste associe a la vue
         _modele = modele;
+        _liste = liste;
+
+        // Creation de l'ecouteur de clic
+        CarteListener ecouteur = new CarteListener();
+
+        // Creation de l'ecouteur de la fenetre
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                handleDialogClosing();
+            }
+        });
+
         // Cree la vue graphique sur ce modele
         txtTitre = new JTextField();
-        JLabel lblHDescription = new JLabel("Description");
-        txtDescription = new JTextField();
+        pnlDescription = new JPanel();
+        pnlEditDescription = new JPanel();
+        pnlDescHeader = new JPanel();
+        pnlDescFooter = new JPanel();
+        JLabel lblHDescription = new JLabel("Description"); // titre de la partie desc
+        txtDescription = new JTextArea();
+        lblDescription = new JLabel();
+        btnAnnulerDescription = new JButton("Annuler");
+        btnEnregistrerDescription = new JButton("Enregistrer");
+        btnModifierDescription = new JButton("Modifier");
         lblSaListe = new JLabel();
         lblDateDebut = new JLabel();
         lblDateFin = new JLabel();
         lstMembres = new JList();
+
+        /// Parametrage de la vue graphique
+        //mise en forme de la vue description
+        pnlDescription.setLayout(new BorderLayout());
+        pnlEditDescription.setLayout(new BorderLayout());
+        pnlDescHeader.setLayout(new GridLayout(1,2));
+        pnlDescFooter.setLayout(new GridLayout(1,2));
+        //ajout des sous elements
+        pnlDescHeader.add(lblHDescription);
+        pnlDescHeader.add(btnModifierDescription);
+        pnlDescription.add(pnlDescHeader, BorderLayout.PAGE_START);
+        pnlDescription.add(lblDescription, BorderLayout.CENTER);
+        pnlEditDescription.add(txtDescription, BorderLayout.CENTER);
+        pnlDescFooter.add(btnEnregistrerDescription);
+        pnlDescFooter.add(btnAnnulerDescription);
+        pnlEditDescription.add(pnlDescFooter, BorderLayout.PAGE_END);
+        pnlDescription.add(pnlEditDescription, BorderLayout.PAGE_END);
+        pnlEditDescription.setVisible(false);
+
+        // Attribution de.s ecouteurs
+        btnEnregistrerDescription.addActionListener(ecouteur);
+        btnAnnulerDescription.addActionListener(ecouteur);
+        btnModifierDescription.addActionListener(ecouteur);
+
         // Ajout des elements graphiques
         add(txtTitre);
         add(lblSaListe);
-        add(lblHDescription);
-        add(txtDescription);
+        add(pnlDescription);
         add(lblDateDebut);
         add(lblDateFin);
         add(lstMembres);
+
         // Affichage du composant graphique
         // Définition de la taille du JDialog
         int dialogWidth = AppliTrelloLite.FRAME_WIDTH - 200;
@@ -64,7 +147,6 @@ public class CarteView extends JDialog {
         setSize(dialogWidth, dialogHeight);
         setMaximumSize(cardSize);
         setMinimumSize(minCardSize);
-
         //
         setLayout(new GridLayout(0, 1));
         setBackground(AppliTrelloLite.whitePanelColor);
@@ -94,6 +176,7 @@ public class CarteView extends JDialog {
 
         txtTitre.setText(titreCarte);
         txtDescription.setText(descriptionCarte);
+        lblDescription.setText(descriptionCarte);
 
         lblSaListe.setText("Dans la liste "+saListe);
 
@@ -116,5 +199,14 @@ public class CarteView extends JDialog {
         System.out.println("desc modif");
         // maj de la description
         _modele.setDescription(description);
+
     }
+
+    // Custom method to handle the closing of the JDialog
+    private void handleDialogClosing() {
+        // Enregistre le titre et la description
+        handleTitreModification();
+        _liste.redessiner();
+    }
+
 }

@@ -1,5 +1,6 @@
 package Views;
 import Controller.EspaceTravailController;
+import Controller.TableauController;
 import EspaceDeTravail.EspaceTravail;
 import EspaceDeTravail.Objets;
 import EspaceDeTravail.Tableau;
@@ -119,8 +120,10 @@ public class EspaceTravailView extends JPanel {
             if (_modele.getSesTableaux() != null) {
                 Tableau tableau = _modele.getSesTableaux().get(0);
                 TableauView tableauView = new TableauView(tableau);
+                TableauController tableauController = new TableauController(tableau, tableauView);
                 JPanel pnlTableau = new JPanel();
                 pnlTableau.add(tableauView);
+                pnlTableau.add(tableauController);
                 setPage(pnlTableau);
             }
 

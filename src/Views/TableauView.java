@@ -22,7 +22,7 @@ public class TableauView extends JPanel{
     JPanel pnlBody;
     // Scroll pane with horizontal scrolling
     JScrollPane scrollPane;
-    
+
     // composants
     JLabel lblTitreTableau;
 
@@ -66,9 +66,8 @@ public class TableauView extends JPanel{
         lblTitreTableau.setText(titreTableau);
 
         pnlBody.removeAll();
-
+        // Ajout des listes dans le tableau
         for (Liste l : listeTab) {
-            //pnlBody.add(new JButton("liste "+l.getNomListe()));
             ajouterListe(l);
         }
         //pnlBody.revalidate();
