@@ -52,7 +52,7 @@ public class TableauView extends JPanel{
     }
 
     public void ajouterListe(Liste liste){
-        ListeView listeView = new ListeView(liste);
+        ListeView listeView = new ListeView(liste, this);
         ListeController listeController = new ListeController(liste,listeView);
         listeView.add(listeController, BorderLayout.PAGE_END);
         pnlBody.add(listeView);
@@ -70,7 +70,7 @@ public class TableauView extends JPanel{
         for (Liste l : listeTab) {
             ajouterListe(l);
         }
-        //pnlBody.revalidate();
-        //pnlBody.repaint();
+        pnlBody.revalidate();
+        pnlBody.repaint();
     }
 }

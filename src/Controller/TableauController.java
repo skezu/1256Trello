@@ -21,7 +21,7 @@ public class TableauController extends JPanel implements ActionListener {
     TableauView _vue;
 
     // Boutons
-    private JButton btnAjouterListe, btnVisibilite;
+    private JButton btnAjouterListe, btnVisibilite, btnRefresh;
 
 
     //////////////////////////////////
@@ -40,6 +40,7 @@ public class TableauController extends JPanel implements ActionListener {
         // Composants graphiques
         btnAjouterListe = new JButton("Ajouter une liste");
         btnVisibilite = new JButton("V");
+        btnRefresh = new JButton("Rafraichir");
 
         // Style les boutons
         btnAjouterListe.setBackground(Color.gray);
@@ -48,8 +49,10 @@ public class TableauController extends JPanel implements ActionListener {
         // Prepare la gestion des clics sur les boutons
         btnAjouterListe.setActionCommand("AJOUTER_LISTE");
         btnVisibilite.setActionCommand("VISIBILITE");
+        btnRefresh.setActionCommand("REFRESH");
         btnVisibilite.addActionListener(this);
         btnAjouterListe.addActionListener(this);
+        btnRefresh.addActionListener(this);
 
         // Set preferred width
         Dimension txtBtnPreferredSize = new Dimension(300, btnAjouterListe.getPreferredSize().height);
@@ -61,6 +64,7 @@ public class TableauController extends JPanel implements ActionListener {
         // Ajout des composants graphiques
         add(btnAjouterListe);
         add(btnVisibilite);
+        add(btnRefresh);
     }
 
     /**
@@ -73,9 +77,10 @@ public class TableauController extends JPanel implements ActionListener {
         if (e.getActionCommand().equals("AJOUTER_LISTE")) {
             _vue.ajouterListe(new Liste(_modele));
             System.out.println("liste ajoutée");
-        }
-        if (e.getActionCommand().equals("VISIBILITE")) {
+        } else if (e.getActionCommand().equals("VISIBILITE")) {
             System.out.println("visibilite clic");
+        } else {
+            System.out.println("Rafraichissement");
         }
         _vue.redessiner();
     }
