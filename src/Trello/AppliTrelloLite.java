@@ -34,16 +34,6 @@ public class AppliTrelloLite {
         EspaceTravail espace1 = new EspaceTravail();
         Tableau tableau1 = new Tableau(espace1);
         Liste liste1 = new Liste(tableau1);
-        Liste liste2 = new Liste(tableau1);
-        Liste liste3 = new Liste(tableau1);
-        Liste liste4 = new Liste(tableau1);
-        Liste liste5 = new Liste(tableau1);
-        Carte carte1 = new Carte(liste1);
-        Carte carte2 = new Carte(liste1);
-        Carte carte3 = new Carte(liste1);
-        Carte carte4 = new Carte(liste2);
-        Carte carte5 = new Carte(liste2);
-        Carte carte6 = new Carte(liste3);
         // Vues
         EspaceTravailView viewEspace1 = new EspaceTravailView(espace1);
         // Controlleur

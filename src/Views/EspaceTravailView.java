@@ -86,6 +86,11 @@ public class EspaceTravailView extends JPanel {
         public void setPage(JPanel p){
         pnlBody.removeAll();
         pnlBody.add(p, BorderLayout.CENTER);
+        p.setVisible(true);
+        }
+        public void clearPage(){
+        pnlBody.removeAll();
+        redessiner();
         }
         public void ajouterAside(JPanel p){
             pnlAside.add(p);

@@ -8,6 +8,8 @@ import Trello.AppliTrelloLite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ListeView extends JPanel {
@@ -25,6 +27,7 @@ public class ListeView extends JPanel {
     private JList<CarteController> lstCartes;
     // Labels
     private JLabel lblNomListe;
+    private JButton btnRetirerListe;
     private JPanel pnlTitre;
 
     /**
@@ -33,20 +36,30 @@ public class ListeView extends JPanel {
      * @param  modele  Le modele de la Liste a associer a la vue.
      * @return         None
      */
-    public ListeView(Liste modele){
+    public ListeView(Liste modele, TableauView vueTableau){
         // Memorise le modele associe a la vue
         _modele = modele;
         // Cree la vue graphique sur ce modele
         pnlCarte = new JPanel();
         lblNomListe = new JLabel();
+        btnRetirerListe = new JButton("X");
         pnlTitre = new JPanel();
 
+        // configuration rapide du bouton
+        btnRetirerListe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _modele.supprimer();
+                vueTableau.redessiner();
+            }
+        });
         // mise en page
         //pnlCarte.setLayout(new BoxLayout(pnlCarte, BoxLayout.Y_AXIS));
         pnlCarte.setLayout(new GridLayout(0,1));
         setLayout(new BorderLayout());
         // setup de la liste (ajout du panel pour le nom et pour les cartes)
         pnlTitre.add(lblNomListe);
+        pnlTitre.add(btnRetirerListe);
         add(pnlTitre, BorderLayout.PAGE_START);
         add(pnlCarte, BorderLayout.CENTER);
 
@@ -92,6 +105,8 @@ public class ListeView extends JPanel {
         for (Carte carte : _modele.getSesCartes()){
             ajouterCarte(carte);
         }
+        pnlCarte.revalidate();
+        pnlCarte.repaint();
     }
     // -----------------------------
 }

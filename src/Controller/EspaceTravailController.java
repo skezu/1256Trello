@@ -86,14 +86,25 @@ public class EspaceTravailController extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Trouve le bouton qui a declanche l'evenement
-        if (e.getActionCommand().equals(ACTION_EDIT_MEMBRES)) {
-            // Affiche la vue de gestion des membres
-            // TODO ouvrire la fenetre de gestion des membres
-        } else if (e.getActionCommand().equals(ACTION_EDIT_TABLEAUX)) {
-            // Affiche la vue de gestion des tableaux
-            // TODO ouvrire la fenetre de gestion des tableaux
+        switch (e.getActionCommand()) {
+            case ACTION_EDIT_MEMBRES:
+                System.out.println("ACTION_EDIT_MEMBRES");
+                // Affiche la vue de gestion des membres
+                // TODO ouvrire la fenetre de gestion des membres
+                break;
+            case ACTION_EDIT_TABLEAUX:
+                System.out.println("ACTION_EDIT_TABLEAUX");
+                // Affiche la vue de gestion des tableaux
+                JPanel pnlTabs = new JPanel();
+                JLabel lblTabs = new JLabel("Tabs");
+                pnlTabs.add(lblTabs);
+                // TODO ouvrire la fenetre de gestion des tableaux
+                //_vue.setPage(pnlTabs);
+                //_vue.clearPage();
+                break;
+            default:
+                break;
         }
-
         // Rafraichir la vue
         _vue.redessiner();
     }
