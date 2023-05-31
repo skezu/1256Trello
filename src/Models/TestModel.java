@@ -58,6 +58,8 @@ public class TestModel {
             System.out.println("Erreur");
         }
 
+        
+
         //ajout d'un menbre a un espace de travail est il ajouter a la liste et son tableau verifion qu'il est bien ajouter a la carte aussi
         System.out.println("---------ajout d'un membre a un espace de travail-----------");
         e2.ajouterMembre(m);
@@ -170,6 +172,8 @@ public class TestModel {
         else {
             System.out.println("Erreur");
         }
+
+
         //test des methode supprimer
         System.out.println("---------test des methode supprimer------------");
         System.out.println("----------suprimer carte----------");
@@ -200,6 +204,8 @@ public class TestModel {
         else {
             System.out.println("Erreur");
         }
+
+
 
         //teste création d'un espace de travail a patir d'un menbre
         EspaceTravailModel espace =m.creeEspaceDetravail();
