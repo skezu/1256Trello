@@ -7,6 +7,7 @@ import EspaceDeTravail.Membre;
 import EspaceDeTravail.Liste;
 import EspaceDeTravail.Carte;
 import EspaceDeTravail.Tableau;
+import Views.MembreView;
 
 
 public class MembreController extends JPanel implements ActionListener {
@@ -29,7 +30,7 @@ public class MembreController extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals(ACTION_ADD_MEMBRE_CARTE)){
-
+            new MembreView(c);
         }
     }
 }
