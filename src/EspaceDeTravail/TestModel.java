@@ -248,5 +248,13 @@ public class TestModel {
             System.out.println("Erreur");
         }
 
+        System.out.println("----------creation dun menu----------");
+        Menu menu = new Menu();
+        System.out.println("Affichage du menu :\n"+menu);
+
+        System.out.println("----------ajout d'un membre----------");
+        menu.ajouterMembre();
+        System.out.println("Affichage du menu avec 1 membre en plus:\n"+menu);
+
     }
 }
