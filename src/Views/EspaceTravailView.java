@@ -1,7 +1,9 @@
 package Views;
+import Controller.EditableLabel;
 import Controller.EspaceTravailController;
 import Controller.TableauController;
 import EspaceDeTravail.EspaceTravail;
+import EspaceDeTravail.Membre;
 import EspaceDeTravail.Objets;
 import EspaceDeTravail.Tableau;
 import Trello.AppliTrelloLite;
@@ -16,9 +18,11 @@ public class EspaceTravailView extends JPanel {
      * -----------------------------
      */
     EspaceTravail _modele;
+    Membre _membre;
 
-    // Label affichant le nom de l'espace de travail
+    // Label affichant le nom de l'espace de travail et du membre
     private JLabel lblNomEspaceDeTravail;
+    private EditableLabel lblNomMembre;
     // Label affichant la visibilite de l'espace de travail
     private JLabel lblVisibilite;
 
@@ -38,6 +42,7 @@ public class EspaceTravailView extends JPanel {
     public EspaceTravailView(EspaceTravail modele) {
         // Memorise le modele associe a la vue
         _modele = modele;
+        _membre = _modele.getSonProprietaire();
         // Cree la vue graphique sur ce modele
         ///
         // Header
@@ -64,8 +69,11 @@ public class EspaceTravailView extends JPanel {
 
         // Composants
         lblNomEspaceDeTravail = new JLabel();
+        lblNomMembre = new EditableLabel("", pnlHeader, _membre);
         lblNomEspaceDeTravail.setForeground(AppliTrelloLite.navTextColor);
+        lblNomMembre.setForeground(AppliTrelloLite.navTextColor);
         pnlHeader.add(lblNomEspaceDeTravail);
+        pnlHeader.add(lblNomMembre);
 
         /// Format page
         setLayout(new BorderLayout());
@@ -107,15 +115,24 @@ public class EspaceTravailView extends JPanel {
          * @return None
          */
         public void redessiner() {
-            // Recuperer le titre de l'espace de travail du modele
+            // Recuperer le titre de l'espace de travail du modele (ainsi que du membre)
+            String titreMembreTitulaire = "";
+            if (_modele.getSonProprietaire() != null){
+                titreMembreTitulaire = _modele.getSonProprietaire().getNomMembre();
+            }
+
+            //System.out.println("EspaceTravailView.java:114");
+            //System.out.println(_modele.getSonProprietaire());
+
             String titreEspaceDeTravail = _modele.getNomEspaceDeTravail();
             // Recuperer le logo de l'espace de travail du modele
             String logoEspaceDeTravail = _modele.getLogoEspaceDeTravail();
             // Recuperer la visibilite de l'espace de travail du modele
             //String visibiliteEspaceDeTravail = _modele.getSaVisibilité().toString(); // <- faire en sorte d'avoir un visibilite.getNom()
 
-            // Afficher le nom de l'espace de travail
+            // Afficher le nom de l'espace de travail et du membre
             lblNomEspaceDeTravail.setText(titreEspaceDeTravail);
+            lblNomMembre.setText(titreMembreTitulaire);
             // Afficher le logo de l'espace de travail
             // TODO : Afficher le logo de l'espace de travail
             // Afficher la visibilite de l'espace de travail

@@ -252,9 +252,35 @@ public class TestModel {
         Menu menu = new Menu();
         System.out.println("Affichage du menu :\n"+menu);
 
-        System.out.println("----------ajout d'un membre----------");
+        System.out.println("----------ajout d'un membre au menu----------");
+        int menu_size = menu.getListeMembres().size();
         menu.ajouterMembre();
-        System.out.println("Affichage du menu avec 1 membre en plus:\n"+menu);
+        if (menu.getListeMembres().size()==menu_size+1){
+            System.out.println("ok");
+        }
+        else {
+            System.out.println("Erreur");
+        }
+
+        System.out.println("----------retirer un membre au menu----------");
+        menu_size = menu.getListeMembres().size();
+        menu.retirerMembre(menu.getListeMembres().get(1));
+        if (menu.getListeMembres().size()==menu_size-1){
+            System.out.println("ok");
+        } else {
+            System.out.println("Erreur");
+        }
+
+        System.out.println("----------acces a l'espace de travail d'un membre du menu----------");
+        EspaceTravail test_esp = menu.getListeMembres().get(0).getSesEspaceDeTravail().get(0);
+        test_esp.setNomEspaceDeTravail("TEST_REUSSI");
+        if (menu.getListeMembres().get(0).getSesEspaceDeTravail().get(0).getNomEspaceDeTravail()=="TEST_REUSSI"){
+            System.out.println("ok");
+        }
+        else {
+            System.out.println("Erreur");
+        }
+
 
     }
 }

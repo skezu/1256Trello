@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.CarteController;
+import Controller.EditableLabel;
 import EspaceDeTravail.Carte;
 import EspaceDeTravail.Liste;
 import EspaceDeTravail.Membre;
@@ -26,7 +27,7 @@ public class ListeView extends JPanel {
     private DefaultListModel<CarteController> model;
     private JList<CarteController> lstCartes;
     // Labels
-    private JLabel lblNomListe;
+    private EditableLabel lblNomListe;
     private JButton btnRetirerListe;
     private JPanel pnlTitre;
 
@@ -41,9 +42,9 @@ public class ListeView extends JPanel {
         _modele = modele;
         // Cree la vue graphique sur ce modele
         pnlCarte = new JPanel();
-        lblNomListe = new JLabel();
-        btnRetirerListe = new JButton("X");
         pnlTitre = new JPanel();
+        lblNomListe = new EditableLabel("", pnlTitre, _modele);
+        btnRetirerListe = new JButton("X");
 
         // configuration rapide du bouton
         btnRetirerListe.addActionListener(new ActionListener() {

@@ -23,6 +23,7 @@ public class EspaceTravail {
 		numEspaceDeTravail = compteurNum++;
 		nomEspaceDeTravail = "Espace de";
 		logoEspaceDeTravail = "";
+		sonProprietaire = null;
 	}
 
 	public EspaceTravail(ArrayList<Tableau> sesTableaux, ArrayList<Membre> sesMembres, Visibilite saVisibilité, String nomEspaceDeTravail, String logoEspaceDeTravail) {

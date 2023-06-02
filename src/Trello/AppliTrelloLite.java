@@ -36,10 +36,10 @@ public class AppliTrelloLite {
         Tableau tableau1 = new Tableau(espace1);
         Liste liste1 = new Liste(tableau1);
 
-        //Menu menu1 = new Menu();
+        Menu menu1 = new Menu();
         // Vues
         EspaceTravailView viewEspace1 = new EspaceTravailView(espace1);
-        //MenuView menuView1 = new MenuView(menu1);
+        MenuView menuView1 = new MenuView(menu1);
 
         // Controlleur
         EspaceTravailController controllerEspace1 = new EspaceTravailController(espace1, viewEspace1);
@@ -47,11 +47,11 @@ public class AppliTrelloLite {
         viewEspace1.ajouterHeader(controllerEspace1);
 
         // Ajout de l'espace de travail sur la fenetre
-        frame.add(viewEspace1);
-        //frame.add(menuView1);
+        //frame.add(viewEspace1);
+        frame.add(menuView1);
         // Afficher la fenetre
-        frame.setSize (FRAME_WIDTH, FRAME_HEIGHT);
-        //frame.setSize (700, 300);
+        //frame.setSize (FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setSize (700, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }

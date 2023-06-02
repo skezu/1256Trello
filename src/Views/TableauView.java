@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.CarteController;
+import Controller.EditableLabel;
 import Controller.ListeController;
 import EspaceDeTravail.Carte;
 import EspaceDeTravail.Liste;
@@ -24,14 +25,15 @@ public class TableauView extends JPanel{
     JScrollPane scrollPane;
 
     // composants
-    JLabel lblTitreTableau;
+    EditableLabel lblTitreTableau;
 
     public TableauView(Tableau modele) {
         _modele = modele;
         setLayout(new BorderLayout());
 
         // Set the title
-        lblTitreTableau = new JLabel(_modele.getNomTableau());
+        pnlHeader = new JPanel();
+        lblTitreTableau = new EditableLabel(_modele.getNomTableau(), pnlHeader, _modele);
 
         // Create a panel with BoxLayout
         pnlBody = new JPanel();
@@ -45,7 +47,8 @@ public class TableauView extends JPanel{
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(AppliTrelloLite.FRAME_WIDTH-100, AppliTrelloLite.FRAME_HEIGHT-200));
 
-        add(lblTitreTableau, BorderLayout.PAGE_START);
+        pnlHeader.add(lblTitreTableau);
+        add(pnlHeader, BorderLayout.PAGE_START);
         add(scrollPane, BorderLayout.CENTER);
 
         redessiner();
