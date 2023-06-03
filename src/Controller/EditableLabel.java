@@ -12,19 +12,24 @@ import java.awt.event.MouseEvent;
 
 ///////////////////////////
 //     EditableLabel     //
-///////////////////////////////////////////////////////////////////////////
-// Label qui permet d'afficher les titres des listes,espaces de travail, //
-// membres, cartes et tableaux avec la fonctionnalité d'editer le texte  //
-// quand on clic dessus                                                  //
-///////////////////////////////////////////////////////////////////////////
-
+///////////////////////////
+/**
+ * La classe EditableLabel est une extension de la classe JLabel qui permet d'afficher du texte
+ * avec la possibilité de le modifier en cliquant dessus.
+ */
 public class EditableLabel extends JLabel {
     private JPanel parentPanel;
-    //private Membre model;
 
     ///////////////////////////////////
     // Un constructeur par type      //
     ///////////////////////////////////
+    /**
+     * Constructeur de la classe EditableLabel pour les membres.
+     *
+     * @param text   Le texte initial à afficher.
+     * @param panel  Le JPanel parent qui contient l'EditableLabel.
+     * @param model  Le modèle associé à l'EditableLabel.
+     */
 
     public EditableLabel(String text, JPanel panel, Membre model) {
         super(text);

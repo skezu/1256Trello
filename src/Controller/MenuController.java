@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import static Trello.AppliTrelloLite.FRAME_HEIGHT;
 import static Trello.AppliTrelloLite.FRAME_WIDTH;
 
+/**
+ * La classe MenuController est le contrôleur associé à la vue MenuView.
+ * Il gère les actions et les interactions avec le menu principal de l'application.
+ */
 public class MenuController extends JPanel {
     /////////////////////////////////
     //          Attributs          //
@@ -27,67 +31,86 @@ public class MenuController extends JPanel {
     /////////////////////////////////
     //          Constructeur       //
     /////////////////////////////////
+
+    /**
+     * Constructeur de la classe MenuController.
+     * Crée un nouveau contrôleur pour le menu principal.
+     *
+     * @param modele Le modèle de menu associé au contrôleur.
+     * @param vue    La vue de menu associée au contrôleur.
+     */
     public MenuController(Menu modele, MenuView vue) {
         _modele = modele;
         _vue = vue;
 
         // Mise en page
-        setLayout(new GridLayout(1,0));
+        setLayout(new GridLayout(1, 0));
 
-
-        // Raffraichir la page
+        // Rafraîchir la page
         redessiner();
     }
 
     /////////////////////////////////
-    //          Méthodes           //
+    //          Méthodes           //
     /////////////////////////////////
+
+    /**
+     * Dessine l'espace de travail pour un membre donné.
+     *
+     * @param membre Le membre associé à l'espace de travail à dessiner.
+     */
     private void dessinerEspace(Membre membre) {
-        // attribution des models
+        // Attribution des modèles
         Membre _membre = membre;
         EspaceTravail _espaceTravail = _membre.getSesEspaceDeTravail().get(0);
-        // creation des composantes graphiques
+
+        // Création des composantes graphiques
         JPanel pnlElement = new JPanel();
         JButton btnOuvrirEspace = new JButton(_espaceTravail.getNomEspaceDeTravail());
         EditableLabel nomProprio = new EditableLabel(_membre.getNomMembre(), pnlElement, _membre);
 
-        // config du bouton
+        // Configuration du bouton
         btnOuvrirEspace.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Creer une fenetre pour l'application
+                // Créer une fenêtre pour l'application
                 JDialog frame = new JDialog();
 
-                // Header de la fenetre
+                // Header de la fenêtre
                 frame.setTitle("Lite+ de Trello");
-                // Modeles
-                //EspaceTravail EspaceDuMembre = _espaceTravail;
+
+                // Modèles
                 Tableau TableauDuMembre = new Tableau(_espaceTravail);
+
                 // Vues
-                System.out.println("MenuController.java:71");
-                System.out.println(_espaceTravail.getSonProprietaire());
                 EspaceTravailView vueEspace = new EspaceTravailView(_espaceTravail);
                 TableauView vueTableau = new TableauView(TableauDuMembre);
-                // Controlleur
+
+                // Contrôleur
                 EspaceTravailController controllerEspace = new EspaceTravailController(_espaceTravail, vueEspace);
+
                 // Mise en page
                 frame.add(vueEspace);
-                frame.setSize (FRAME_WIDTH, FRAME_HEIGHT);
-                // Afficher la fenetre
-                //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
+                frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
+                // Afficher la fenêtre
+                frame.setVisible(true);
             }
         });
-        // mise en page
-        pnlElement.setLayout(new GridLayout(0,1));
+
+        // Mise en page
+        pnlElement.setLayout(new GridLayout(0, 1));
         pnlElement.setMaximumSize(new Dimension(50, 50));
-        // ajout des elements
+
+        // Ajout des éléments
         pnlElement.add(btnOuvrirEspace);
         pnlElement.add(nomProprio);
         add(pnlElement);
     }
 
+    /**
+     * Redessine la vue du menu en affichant les espaces de travail des membres.
+     */
     public void redessiner() {
         removeAll();
         ArrayList<Membre> membres = _modele.getListeMembres();
@@ -95,8 +118,5 @@ public class MenuController extends JPanel {
             dessinerEspace(membre);
             System.out.println("nom ->>" + membre.getNomMembre());
         }
-
     }
-
 }
-//
