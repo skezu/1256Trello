@@ -2,11 +2,14 @@ package Views;
 
 import Controller.MenuController;
 import EspaceDeTravail.Menu;
+import Trello.AppliTrelloLite;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MenuView extends JPanel {
     //////////////////////////////
@@ -29,6 +32,11 @@ public class MenuView extends JPanel {
         btnAjouterMembreCarte = new JButton("+");
         lblNomMenu = new JLabel("Menu principal");
         menuController = new MenuController(_modele, this);
+        // styles des composantes
+        lblNomMenu.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        lblNomMenu.setForeground(AppliTrelloLite.textPanelColor);
+        lblNomMenu.setHorizontalAlignment(SwingConstants.CENTER);
+
         // config des boutons
         btnAjouterMembreCarte.addActionListener(new ActionListener() {
             @Override
@@ -44,7 +52,6 @@ public class MenuView extends JPanel {
         pnlBody.add(btnAjouterMembreCarte);
         add (lblNomMenu, BorderLayout.PAGE_START);
         add(pnlBody, BorderLayout.CENTER);
-
     }
 
     /////////////////////////////////

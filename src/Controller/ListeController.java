@@ -62,10 +62,9 @@ public class ListeController extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(ACTION_ADD_CARTE)) {
             Carte nouvelleCarte = new Carte(_modele);
-           // _modele.ajouterCarte(nouvelleCarte); -- TODO trouver où on execute la meme chose
-
         }
-        // Rafraichir la vue
+        // Rafraichir la vue de la liste et du tableau
         _vue.redessiner();
+        _vue.get_vueTableau().redessiner();
     }
 }

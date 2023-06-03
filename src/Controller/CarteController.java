@@ -70,7 +70,6 @@ public class CarteController extends JPanel implements ActionListener {
         // Trouve le bouton qui a declanche l'evenement
         if (e.getActionCommand().equals(ACTION_EDIT_CARTE)) {
             // Affiche la vue de la carte
-            // TODO ouvrire la vue de la carte
             _vue.setVisible(!_vue.isVisible());
         }
 

@@ -55,6 +55,14 @@ public class Tableau {
 	public ArrayList<Liste> getSesListes() {
 		return sesListes;
 	}
+	public Liste getListe(String nom) {
+		for (Liste l : sesListes) {
+			if(l.getNomListe().equals(nom)) {
+				return l;
+			}
+		}
+		return null;
+	}
 
 	public EspaceTravail getSonEspaceDeTravail() {
 		return sonEspaceTravail;

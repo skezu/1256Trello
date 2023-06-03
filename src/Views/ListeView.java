@@ -19,6 +19,8 @@ public class ListeView extends JPanel {
      * ||         Attributs       ||
      * -----------------------------
      */
+    // Vue de son tableau
+    private TableauView _vueTableau;
     // Modele
     private Liste _modele;
     // Panel contenant les cartes
@@ -31,6 +33,9 @@ public class ListeView extends JPanel {
     private JButton btnRetirerListe;
     private JPanel pnlTitre;
 
+    ///////////////////////////////////
+    //          Constructeur         //
+    ///////////////////////////////////
     /**
      * Constructeur de la classe ListeView.
      *
@@ -38,6 +43,8 @@ public class ListeView extends JPanel {
      * @return         None
      */
     public ListeView(Liste modele, TableauView vueTableau){
+        // Memorise la vue du tableau
+        _vueTableau = vueTableau;
         // Memorise le modele associe a la vue
         _modele = modele;
         // Cree la vue graphique sur ce modele
@@ -51,7 +58,7 @@ public class ListeView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 _modele.supprimer();
-                vueTableau.redessiner();
+                _vueTableau.redessiner();
             }
         });
         // mise en page
@@ -75,6 +82,16 @@ public class ListeView extends JPanel {
 
         redessiner();
 
+    }
+
+    ///////////////////////////////
+    //          Getters          //
+    ///////////////////////////////
+    public Liste get_modele() {
+        return _modele;
+    }
+    public TableauView get_vueTableau() {
+        return _vueTableau;
     }
 
     ///////////////////////////////
@@ -109,5 +126,6 @@ public class ListeView extends JPanel {
         pnlCarte.revalidate();
         pnlCarte.repaint();
     }
+
     // -----------------------------
 }

@@ -10,9 +10,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+///////////////////////////
+//     EditableLabel     //
+///////////////////////////////////////////////////////////////////////////
+// Label qui permet d'afficher les titres des listes,espaces de travail, //
+// membres, cartes et tableaux avec la fonctionnalité d'editer le texte  //
+// quand on clic dessus                                                  //
+///////////////////////////////////////////////////////////////////////////
 
 public class EditableLabel extends JLabel {
-
     private JPanel parentPanel;
     //private Membre model;
 

@@ -2,7 +2,9 @@ package Views;
 
 import Controller.CarteController;
 import EspaceDeTravail.Carte;
+import EspaceDeTravail.Liste;
 import EspaceDeTravail.Membre;
+import EspaceDeTravail.Tableau;
 import Trello.AppliTrelloLite;
 
 import javax.swing.*;
@@ -11,12 +13,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CarteView extends JDialog {
 
     ////////////////////////////////
-    //   Class privée (ecouteur)  //
+    //   Class privées            //
     ////////////////////////////////
     private class CarteListener implements ActionListener {
         /**
@@ -38,11 +43,47 @@ public class CarteView extends JDialog {
                 pnlEditDescription.setVisible(true);
                 lblDescription.setVisible(false);
             }
+            if (e.getActionCommand().equals("Supprimer")){
+                // supprime la carte definitivement
+                _modele.supprimer();
+                // fermer la page
+                dispose();
+            }
             handleTitreModification();
             redessiner();
+            _liste.get_vueTableau().redessiner();
         }
+    }
 
+    private class SwitchListe extends JPanel {
+        private JComboBox cbxListes;
 
+        public SwitchListe() {
+            Liste listeModel = _liste.get_modele();
+            Tableau tableau = listeModel.getSonTableau();
+            cbxListes = new JComboBox();
+            for (Liste liste : tableau.getSesListes()) {
+                cbxListes.addItem(liste.getNomListe());
+            }
+            cbxListes.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String stringListe = cbxListes.getSelectedItem().toString();
+                    Liste nouvelleListe = tableau.getListe(stringListe);
+                    // Positionne la carte dans la nouvelle liste
+                    listeModel.retirerCarte(_modele);
+                    nouvelleListe.ajouterCarte(_modele);
+                    redessiner();
+                    _liste.redessiner();
+                }
+            });
+
+            // ajout de la combo box
+            add(cbxListes);
+
+            pack();
+            //setVisible(false);
+        }
     }
 
     /* -----------------------------
@@ -54,14 +95,15 @@ public class CarteView extends JDialog {
     // Label affichant les infos de la carte
     private JTextField txtTitre;
     //-- description
-    private JPanel pnlDescription, pnlEditDescription, pnlDescHeader, pnlDescFooter ;
+    private JPanel pnlDates, pnlDescription, pnlEditDescription, pnlDescHeader, pnlDescFooter ;
     private JLabel lblDescription;
     private JTextArea txtDescription;
-    private JButton btnEnregistrerDescription, btnAnnulerDescription, btnModifierDescription;
+    private JButton btnEnregistrerDescription, btnAnnulerDescription, btnModifierDescription, btnSupprimerCarte;
     // -- fin description
-    private JLabel lblSaListe, lblDateDebut, lblDateFin;
+    private JLabel lblSaListe, lblTitreDateDebut, lblTitreDateFin, lblDateDebut, lblDateFin;
     private JList lstMembres;
-    
+    // combo box
+    private SwitchListe switchListe;
 
 
 
@@ -90,6 +132,7 @@ public class CarteView extends JDialog {
 
         // Cree la vue graphique sur ce modele
         txtTitre = new JTextField();
+        pnlDates = new JPanel();
         pnlDescription = new JPanel();
         pnlEditDescription = new JPanel();
         pnlDescHeader = new JPanel();
@@ -100,12 +143,18 @@ public class CarteView extends JDialog {
         btnAnnulerDescription = new JButton("Annuler");
         btnEnregistrerDescription = new JButton("Enregistrer");
         btnModifierDescription = new JButton("Modifier");
+        btnSupprimerCarte = new JButton("Supprimer");
         lblSaListe = new JLabel();
+        lblTitreDateDebut = new JLabel("Date de début :");
+        lblTitreDateFin = new JLabel("Date limite :");
         lblDateDebut = new JLabel();
         lblDateFin = new JLabel();
         lstMembres = new JList();
+        switchListe = new SwitchListe();
 
         /// Parametrage de la vue graphique
+        //mise en forme de la vue dates
+        pnlDates.setLayout(new GridLayout(2,2));
         //mise en forme de la vue description
         pnlDescription.setLayout(new BorderLayout());
         pnlEditDescription.setLayout(new BorderLayout());
@@ -122,19 +171,34 @@ public class CarteView extends JDialog {
         pnlEditDescription.add(pnlDescFooter, BorderLayout.PAGE_END);
         pnlDescription.add(pnlEditDescription, BorderLayout.PAGE_END);
         pnlEditDescription.setVisible(false);
+        pnlDates.add(lblTitreDateDebut);
+        pnlDates.add(lblDateDebut);
+        pnlDates.add(lblTitreDateFin);
+        pnlDates.add(lblDateFin);
 
         // Attribution de.s ecouteurs
         btnEnregistrerDescription.addActionListener(ecouteur);
         btnAnnulerDescription.addActionListener(ecouteur);
         btnModifierDescription.addActionListener(ecouteur);
+        btnSupprimerCarte.addActionListener(ecouteur);
+
+        // Styles des elements graphiques
+        lblHDescription.setFont(new Font("Arial", Font.BOLD, 17));
+        lblTitreDateDebut.setFont(new Font("Arial", Font.BOLD, 17));
+        lblTitreDateFin.setFont(new Font("Arial", Font.BOLD, 17));
+        btnSupprimerCarte.setBackground(Color.RED);
+        btnSupprimerCarte.setForeground(AppliTrelloLite.navTextColor);
+        btnSupprimerCarte.setFont(new Font("Arial", Font.BOLD, 13));
 
         // Ajout des elements graphiques
         add(txtTitre);
         add(lblSaListe);
+        add(switchListe);
         add(pnlDescription);
-        add(lblDateDebut);
-        add(lblDateFin);
+        add(pnlDates);
         add(lstMembres);
+        add(btnSupprimerCarte);
+
 
         // Affichage du composant graphique
         // Définition de la taille du JDialog
@@ -178,11 +242,14 @@ public class CarteView extends JDialog {
         txtDescription.setText(descriptionCarte);
         lblDescription.setText(descriptionCarte);
 
-        lblSaListe.setText("Dans la liste "+saListe);
+        lblSaListe.setText("Dans la liste " + saListe);
 
         lblDateDebut.setText(dateDebutCarte);
         lblDateFin.setText(dateFinCarte);
         lstMembres.setListData(membres.toArray());
+
+        // animation date fin proche d'un jour
+
     }
 
     // Custom method to handle modification of the txtTitre field
@@ -206,7 +273,9 @@ public class CarteView extends JDialog {
     private void handleDialogClosing() {
         // Enregistre le titre et la description
         handleTitreModification();
+        // Rafraichit la vue de la liste et de son tableau
         _liste.redessiner();
+        _liste.get_vueTableau().redessiner();
     }
 
 }
