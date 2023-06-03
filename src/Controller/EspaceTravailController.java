@@ -9,6 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * La classe EspaceTravailController est une extension de la classe JPanel et implémente l'interface ActionListener.
+ * C'est un contrôleur de la vue EspaceTravailView pour la gestion des actions liées à un espace de travail.
+ */
 public class EspaceTravailController extends JPanel implements ActionListener {
     //-----------------------------
     // Constantes ACTION pour la gestion des evenements
@@ -33,7 +37,12 @@ public class EspaceTravailController extends JPanel implements ActionListener {
     //-----------------------------
     //         Constructeur      ||
     //-----------------------------
-
+    /**
+     * Constructeur de la classe EspaceTravailController.
+     *
+     * @param modele Le modèle associé au contrôleur.
+     * @param vue    La vue associée au contrôleur.
+     */
     public EspaceTravailController(EspaceTravail modele, EspaceTravailView vue) {
         // Memorise le modele associe au controleur
         _modele = modele;
@@ -79,9 +88,9 @@ public class EspaceTravailController extends JPanel implements ActionListener {
 
 
     /**
-     * Invoked when an action occurs.
+     * Méthode invoquée lorsqu'une action se produit.
      *
-     * @param e the event to be processed
+     * @param e L'événement à traiter.
      */
     @Override
     public void actionPerformed(ActionEvent e) {

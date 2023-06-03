@@ -11,29 +11,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * La classe TableauController est une extension de la classe JPanel et implémente l'interface ActionListener.
+ * C'est un contrôleur de la vue TableauView pour la gestion des actions liées à un tableau.
+ */
 public class TableauController extends JPanel implements ActionListener {
 
     /////////////////////////////////
     //       Attributs             //
     /////////////////////////////////
-    // Modele associe et vue au controlleur
+
+    // Modèle associé et vue au contrôleur
     Tableau _modele;
     TableauView _vue;
 
     // Boutons
     private JButton btnAjouterListe, btnVisibilite, btnRefresh;
 
-
     //////////////////////////////////
     //       Constructeur           //
     //////////////////////////////////
 
     /**
-     * Creates a new <code>JPanel</code> with a double buffer
-     * and a flow layout.
+     * Constructeur de la classe TableauController.
+     *
+     * @param modele Le modèle associé au contrôleur.
+     * @param vue    La vue associée au contrôleur.
      */
     public TableauController(Tableau modele, TableauView vue) {
-        // reference vers le modele et la vue
+        // Référence vers le modèle et la vue
         _modele = modele;
         _vue = vue;
 
@@ -46,7 +52,7 @@ public class TableauController extends JPanel implements ActionListener {
         btnAjouterListe.setBackground(Color.gray);
         btnVisibilite.setBackground(AppliTrelloLite.navBorderColor);
 
-        // Prepare la gestion des clics sur les boutons
+        // Prépare la gestion des clics sur les boutons
         btnAjouterListe.setActionCommand("AJOUTER_LISTE");
         btnVisibilite.setActionCommand("VISIBILITE");
         btnRefresh.setActionCommand("REFRESH");
@@ -68,19 +74,19 @@ public class TableauController extends JPanel implements ActionListener {
     }
 
     /**
-     * Invoked when an action occurs.
+     * Méthode invoquée lorsqu'une action se produit.
      *
-     * @param e the event to be processed
+     * @param e L'événement à traiter
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("AJOUTER_LISTE")) {
             _vue.ajouterListe(new Liste(_modele));
-            System.out.println("liste ajoutée");
+            System.out.println("liste ajoutée");
         } else if (e.getActionCommand().equals("VISIBILITE")) {
-            System.out.println("visibilite clic");
+            System.out.println("visibilité clic");
         } else {
-            System.out.println("Rafraichissement");
+            System.out.println("Rafraîchissement");
         }
         _vue.redessiner();
     }
