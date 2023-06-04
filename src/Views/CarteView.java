@@ -57,6 +57,9 @@ public class CarteView extends JDialog {
         }
     }
 
+    /**
+     * Classe interne SwitchListe pour gérer le changement de liste d'une carte.
+     */
     private class SwitchListe extends JPanel {
         private JComboBox cbxListes;
 
@@ -84,7 +87,6 @@ public class CarteView extends JDialog {
             add(cbxListes);
 
             pack();
-            //setVisible(false);
         }
     }
 
@@ -112,8 +114,8 @@ public class CarteView extends JDialog {
     /**
      * Constructeur de la classe CarteView.
      *
-     * @param  modele  Le modele de la carte a associer a la vue.
-     * @return         None
+     * @param modele Le modèle de la carte à associer à la vue.
+     * @param liste  La vue de la liste contenant la carte.
      */
 
     public CarteView(Carte modele, ListeView liste) {
@@ -225,10 +227,7 @@ public class CarteView extends JDialog {
     // -----------------------------
 
     /**
-     * Redessines l'Espace de Travail avec le nom, logo, and visibilite de l'espace de travail du modele.
-     *
-     * @param
-     * @return None
+     * Redessines la carte avec le titre, la description, les dates de debut/fin et les listes du modele.
      */
     public void redessiner() {
         // Récupérer les données de la carte
