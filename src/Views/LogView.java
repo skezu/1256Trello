@@ -5,10 +5,6 @@ import EspaceDeTravail.Log;
 import Trello.AppliTrelloLite;
 
 import java.awt.*;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +21,7 @@ public class LogView extends JDialog {
 
     //panel contenet les menbre
     private JTextArea sortie;
+    private JScrollPane scrollPane;
     /////////////////////////////
     //      Constructeur       //
     /////////////////////////////
@@ -35,9 +32,11 @@ public class LogView extends JDialog {
      */
     public LogView(Log modele){
         this.modele = modele;
-
         // Creation des elements
         sortie = new JTextArea();
+        // Wrap the JTextArea in a JScrollPane
+        scrollPane = new JScrollPane(sortie);
+        scrollPane.setPreferredSize(new Dimension(700, 500));
         // Style
         setTitle("[Logs] Lite+ de Trello");
         sortie.setFont(new Font("Consolas", Font.PLAIN, 13));
@@ -47,7 +46,7 @@ public class LogView extends JDialog {
         setSize(700, 500);
 
         // Ajout des elements
-        add(sortie);
+        add(scrollPane);
 
         // Appel de la fonction redessiner qui va actualiser les logs
         redessiner();
