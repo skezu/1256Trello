@@ -109,9 +109,6 @@ public class EspaceTravailView extends JPanel {
 
         /**
          * Redessines l'Espace de Travail avec le nom, logo, and visibilite de l'espace de travail du modele.
-         *
-         * @param  
-         * @return None
          */
         public void redessiner() {
             // Recuperer le titre de l'espace de travail du modele (ainsi que du membre)
@@ -124,6 +121,7 @@ public class EspaceTravailView extends JPanel {
             //System.out.println(_modele.getSonProprietaire());
 
             String titreEspaceDeTravail = _modele.getNomEspaceDeTravail();
+
             // Recuperer le logo de l'espace de travail du modele
             String logoEspaceDeTravail = _modele.getLogoEspaceDeTravail();
             // Recuperer la visibilite de l'espace de travail du modele

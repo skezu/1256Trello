@@ -110,10 +110,7 @@ public class ListeView extends JPanel {
     //     MAJ de l'affichage     //
     ////////////////////////////////
     /**
-     * Redessines l'Espace de Travail avec le nom, logo, and visibilite de l'espace de travail du modele.
-     *
-     * @param
-     * @return None
+     * Redessines la liste avec le nom et les cartes du modele.
      */
     public void redessiner() {
         // Recuperer les donnees
