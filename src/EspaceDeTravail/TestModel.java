@@ -1,6 +1,14 @@
 package EspaceDeTravail;
+/**
+ * Cette classe contient le point d'entrée du programme de test pour les modèles de l'application.
+ * Elle permet de tester les fonctionnalités des différents modèles en créant des instances et en effectuant des opérations sur ces instances.
+ */
 
 public class TestModel {
+    /**
+     * Le point d'entrée du programme de test.
+     * @param args Les arguments de ligne de commande (non utilisés dans cette application).
+     */
     public static void main(String[] args){
         //création d'un espace de travail vide
         EspaceTravail e =new EspaceTravail();
