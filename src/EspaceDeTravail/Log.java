@@ -1,5 +1,7 @@
 package EspaceDeTravail;
 
+import Views.LogView;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Log {
     //          Attributs          //
     /////////////////////////////////
     private static Log instance;
+    private LogView vue;
     private List<String> activities;
 
     /////////////////////////////////
@@ -59,6 +62,9 @@ public class Log {
         String logEntry = formattedTimestamp + ": " + activity;
         activities.add(logEntry);
         System.out.println("> " + logEntry);
+        if (vue != null) {
+            vue.redessiner();
+        }
     }
 
 
@@ -67,6 +73,14 @@ public class Log {
      */
     public void clearLog() {
         activities.clear();
+    }
+
+    /**
+     * Attribue une vue au modèle pour l'actualiser a chaque ajout de donnée
+     * @param vue
+     */
+    public void setVue(LogView vue) {
+        this.vue = vue;
     }
 
 

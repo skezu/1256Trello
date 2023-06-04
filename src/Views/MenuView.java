@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.MenuController;
+import EspaceDeTravail.Log;
 import EspaceDeTravail.Menu;
 import Trello.AppliTrelloLite;
 
@@ -19,11 +20,14 @@ public class MenuView extends JPanel {
     //////////////////////////////
     //         Attributs        //
     //////////////////////////////
+    Log log = Log.getInstance();
+    private LogView logView;
     private Menu _modele;
     private JPanel pnlBody;
     private JLabel lblNomMenu;
-    private JButton btnAjouterMembreCarte;
+    private JButton btnAjouterMembreCarte, btnAfficherLogs;
     private MenuController menuController;
+
 
     ////////////////////////////////
     //         Constructeur       //
@@ -37,10 +41,12 @@ public class MenuView extends JPanel {
      */
     public MenuView(Menu modele) {
         _modele = modele;
+        logView = new LogView(log);
 
         // Création des composantes graphiques
         pnlBody = new JPanel();
         btnAjouterMembreCarte = new JButton("+");
+        btnAfficherLogs = new JButton("Logs");
         lblNomMenu = new JLabel("Menu principal");
         menuController = new MenuController(_modele, this);
 
@@ -51,10 +57,26 @@ public class MenuView extends JPanel {
 
         // Configuration des boutons
         btnAjouterMembreCarte.addActionListener(new ActionListener() {
+            /**
+             * Ajoute un membre et raffraichit la vue
+             * @param e the event to be processed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 _modele.ajouterMembre();
                 redessiner();
+            }
+        });
+
+        btnAfficherLogs.addActionListener(new ActionListener() {
+            /**
+             * Ouvre la page des logs
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                log.setVue(logView);
+               logView.setVisible(true);
             }
         });
 
@@ -66,6 +88,7 @@ public class MenuView extends JPanel {
         pnlBody.add(btnAjouterMembreCarte);
         add(lblNomMenu, BorderLayout.PAGE_START);
         add(pnlBody, BorderLayout.CENTER);
+        add(btnAfficherLogs, BorderLayout.PAGE_END);
     }
 
     /////////////////////////////////
