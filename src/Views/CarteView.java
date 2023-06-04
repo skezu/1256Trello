@@ -25,9 +25,11 @@ public class CarteView extends JDialog {
     ////////////////////////////////
     private class CarteListener implements ActionListener {
         /**
-         * Invoked when an action occurs.
+         * Invoqué dès qu'une action se produit
+         * Permet d'enregistrer la description, et le titre de la carte
+         * Et d'annuler ou modifier la modification de la description
          *
-         * @param e the event to be processed
+         * @param e l'evenement a traiter
          */
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -14,11 +14,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ListeView extends JPanel {
-    /**
-     * -----------------------------
-     * ||         Attributs       ||
-     * -----------------------------
-     */
+
+    ///////////////////////////////
+    //         Attributs         //
+    ///////////////////////////////
+
     // Vue de son tableau
     private TableauView _vueTableau;
     // Modele
@@ -40,6 +40,7 @@ public class ListeView extends JPanel {
      * Constructeur de la classe ListeView.
      *
      * @param  modele  Le modele de la Liste a associer a la vue.
+     * @param  vueTableau La vue du tableau
      * @return         None
      */
     public ListeView(Liste modele, TableauView vueTableau){
@@ -57,8 +58,10 @@ public class ListeView extends JPanel {
         btnRetirerListe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _modele.supprimer();
-                _vueTableau.redessiner();
+                // Supprimer la liste
+                boolean supprime = _modele.supprimer();
+                if (supprime) _vueTableau.redessiner();
+                redessiner();
             }
         });
         // mise en page
@@ -103,9 +106,9 @@ public class ListeView extends JPanel {
         pnlCarte.add(controller);
     }
 
-    // -----------------------------
-    // ||    MAJ de l'affichage   ||
-
+    ////////////////////////////////
+    //     MAJ de l'affichage     //
+    ////////////////////////////////
     /**
      * Redessines l'Espace de Travail avec le nom, logo, and visibilite de l'espace de travail du modele.
      *

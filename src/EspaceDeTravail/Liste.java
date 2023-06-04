@@ -3,18 +3,24 @@ package EspaceDeTravail;
 import java.util.*;
 
 public class Liste {
+	//////////////////////////////////
+	//          Attributs           //
+	//////////////////////////////////
 
 	// Attribut de classe
 	private static int compteurNum = 0;
 
 	// Attribut d'instance
+	Log log = Log.getInstance();
 	private Tableau sonTableau;
 	private ArrayList<Carte> sesCartes;
 	private int numListe;
 	private String nomListe;
 	private ArrayList<Membre> sesMenbre;
 
-	// Constructeur
+	//////////////////////////////
+	// 		  Constructeur		//
+	//////////////////////////////
 	public Liste(Tableau sonTableau) {
 		this.sonTableau = sonTableau;
 		sonTableau.ajouterListe(this);
@@ -22,6 +28,7 @@ public class Liste {
 		sesMenbre= new ArrayList<Membre>();
 		numListe = compteurNum++;
 		nomListe = "Nouvelle Liste";
+		log.addActivity("Liste vide créée");
 	}
 	public Liste(Tableau sonTableau, ArrayList<Carte> sesCartes, String nomListe, ArrayList<Membre> sesMenbre) {
 		this.sonTableau = sonTableau;
@@ -30,6 +37,7 @@ public class Liste {
 		this.sesMenbre = sesMenbre;
 		this.numListe = compteurNum++;
 		this.nomListe = nomListe;
+		log.addActivity("Liste "+numListe+"-"+nomListe+" créée");
 	}
 
 	public Liste ( Tableau sonTableau,String nomListe){
@@ -39,11 +47,13 @@ public class Liste {
 		sesMenbre= new ArrayList<Membre>();
 		numListe = compteurNum++;
 		this.nomListe = nomListe;
+		log.addActivity("Liste "+numListe+"-"+nomListe+" créée");
 	}
 
 	
-	// Getter
-
+	/////////////////////////////////
+	//  		  Getter		   //
+	/////////////////////////////////
 	public Tableau getSonTableau() {
 		return sonTableau;
 	}
@@ -64,12 +74,16 @@ public class Liste {
 
 	public void setSonTableau(Tableau sonTableau) {
 		this.sonTableau = sonTableau;
+		log.addActivity("Tableau contenant la liste modifié");
 	}
 
 	public void setNomListe(String nomListe) {
 		this.nomListe = nomListe;
+		log.addActivity("Nom de la Liste "+numListe+"-"+nomListe+" modifiée");
 	}
-
+	///////////////////////////////////
+	//  		  Methodes		     //
+	///////////////////////////////////
 	public void ajouterMembre(Membre m){
 		if(! this.sesMenbre.contains(m)) {
 			this.sesMenbre.add(m);
@@ -77,6 +91,7 @@ public class Liste {
 				c.ajouterMembre(m);
 			}
 			m.ajouterListe(this);
+			log.addActivity("Membre "+m.getNumMembre()+"-"+m.getNomMembre()+" ajouté à la liste "+numListe+"-"+nomListe);
 		}
 	}
 
@@ -87,16 +102,19 @@ public class Liste {
 				c.retirerMembre(m);
 			}
 			m.retirerListe(this);
+			log.addActivity("Membre "+m.getNumMembre()+"-"+m.getNomMembre()+" retiré de la liste "+numListe+"-"+nomListe);
 		}
 	}
 
-	// Methode
 	public void ajouterCarte(Carte Carte) {
 		this.sesCartes.add(Carte);
 		Carte.ajouterListe(this);
+		log.addActivity("Carte "+Carte.getNumCarte()+"-"+Carte.getTitreCarte()+" ajouté à la liste "+numListe+"-"+nomListe);
 	}
 	public void retirerCarte(Carte Carte) {
 		this.sesCartes.remove(Carte);
+		log.addActivity("Carte "+Carte.getNumCarte()+"-"+Carte.getTitreCarte()+" retiré de la liste "+numListe+"-"+nomListe);
+
 	}
 
 	public int nbCarte(){
@@ -119,7 +137,7 @@ public class Liste {
 		for (Membre m:sesMenbre) {
 			m.retirerListe(this);
 		}
-
+		log.addActivity("Liste "+numListe+"-"+nomListe+" supprimée");
 		return true;
 	}
 	// ToString

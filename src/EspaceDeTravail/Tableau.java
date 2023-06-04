@@ -3,10 +3,13 @@ package EspaceDeTravail;
 import java.util.*;
 
 public class Tableau {
-	// Attribut de classe
+	///////////////////////////////
+	// 		Attribut de classe	 //
+	///////////////////////////////
 	private static int compteurNum = 0;
 	
 	// Attribut d'instance
+	Log log = Log.getInstance();
 	private ArrayList<Liste> sesListes;
 	private EspaceTravail sonEspaceTravail;
 	private ArrayList<Membre> sesMembres;
@@ -16,7 +19,9 @@ public class Tableau {
 	private String categorieTableau;
 	private String imageTableau;
 	
-	// Constructeur
+	/////////////////////////////
+	// 		Constructeur	   //
+	/////////////////////////////
 	public Tableau(EspaceTravail sonEspaceTravail) {
 		sesListes = new ArrayList<Liste>();
 		sesMembres = new ArrayList<Membre>();
@@ -27,16 +32,10 @@ public class Tableau {
 		nomTableau = "Nouveau Tableau";
 		categorieTableau = "";
 		imageTableau = "";
+		log.addActivity("Tableau vide créé");
 	}
 
-	// Ajouter un espace de travail et tous les membres de cet espace au Tableau
-	public void ajouterEspaceTravail(EspaceTravail e){
-		this.sonEspaceTravail=e;
-		e.ajouterTableau(this);
-		for (Membre m : e.getSesMembres()){
-			this.ajouterMembre(m);
-		}
-	}
+
 	public Tableau(ArrayList<Liste> sesListes, EspaceTravail sonEspaceTravail, ArrayList<Membre> sesMembres, Visibilite saVisibilite, String nomTableau, String categorieTableau, String imageTableau) {
 		this.sesListes = sesListes;
 		this.sonEspaceTravail = sonEspaceTravail;
@@ -47,11 +46,12 @@ public class Tableau {
 		this.nomTableau = nomTableau;
 		this.categorieTableau = categorieTableau;
 		this.imageTableau = imageTableau;
+		log.addActivity("Tableau "+numTableau+"-"+nomTableau+" créé");
 	}
 	
-	// Getter
-
-
+	///////////////////////////////
+	// 			Getter			 //
+	///////////////////////////////
 	public ArrayList<Liste> getSesListes() {
 		return sesListes;
 	}
@@ -92,26 +92,32 @@ public class Tableau {
 		return imageTableau;
 	}
 	
-	// Setter
-
+	////////////////////////////////
+	// 			Setter			  //
+	////////////////////////////////
 	public void setSonEspaceDeTravail(EspaceTravail sonEspaceTravail) {
 		this.sonEspaceTravail = sonEspaceTravail;
+		log.addActivity("Espace de travail attribué au Tableau "+numTableau+"-"+nomTableau+" modifié");
 	}
 
 	public void setSaVisibilite(Visibilite saVisibilite) {
 		this.saVisibilite = saVisibilite;
+		log.addActivity("Visibilite attribuée au Tableau "+numTableau+"-"+nomTableau+" modifié");
 	}
 
 	public void setNomTableau(String nomTableau) {
 		this.nomTableau = nomTableau;
+		log.addActivity("Nom du Tableau "+numTableau+"-"+nomTableau+" modifié");
 	}
 
 	public void setCategorieTableau(String categorieTableau) {
 		this.categorieTableau = categorieTableau;
+		log.addActivity("Catégorie du Tableau "+numTableau+"-"+nomTableau+" modifié");
 	}
 
 	public void setImageTableau(String imageTableau) {
 		this.imageTableau = imageTableau;
+		log.addActivity("Image du Tableau "+numTableau+"-"+nomTableau+" modifié");
 	}
 	
 	// Methodes
@@ -122,6 +128,16 @@ public class Tableau {
 		sesListes.remove(liste);
 	}
 
+	// Ajouter un espace de travail et tous les membres de cet espace au Tableau
+	public void ajouterEspaceTravail(EspaceTravail e){
+		this.sonEspaceTravail=e;
+		e.ajouterTableau(this);
+		for (Membre m : e.getSesMembres()){
+			this.ajouterMembre(m);
+		}
+		log.addActivity("Espace de travail "+e.getNumEspaceDeTravail()+"-"+e.getNomEspaceDeTravail()+" créé");
+	}
+
 	public void ajouterMembre(Membre m){
 		if(!this.sesMembres.contains(m)) {
 			sesMembres.add(m);
@@ -129,6 +145,7 @@ public class Tableau {
 				l.ajouterMembre(m);
 			}
 			m.ajouterTableau(this);
+			log.addActivity("Membre "+m.getNumMembre()+"-"+m.getNomMembre()+" ajouté au Tableau "+numTableau+"-"+nomTableau);
 		}
 	}
 
@@ -139,6 +156,7 @@ public class Tableau {
 				l.retirerMembre(m);
 			}
 			m.retirerTableau(this);
+			log.addActivity("Membre "+m.getNumMembre()+"-"+m.getNomMembre()+" retiré du Tableau "+numTableau+"-"+nomTableau);
 		}
 	}
 
@@ -160,6 +178,7 @@ public class Tableau {
 		for (Membre m:sesMembres) {
 			m.retirerTableau(this);
 		}
+		log.addActivity("Tableau "+numTableau+"-"+nomTableau+" supprimé");
 		return true;
 	}
 	// ToString

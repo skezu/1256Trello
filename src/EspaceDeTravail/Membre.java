@@ -3,11 +3,15 @@ package EspaceDeTravail;
 import java.util.*;
 
 public class Membre {
+	///////////////////////////////////
+	//          Attributs            //
+	///////////////////////////////////
 
 	// Attribut de classe
 	private static int compteurNum = 0;
 
 	// Attribut d'instance
+	Log log = Log.getInstance();
 	private ArrayList<EspaceTravail> sesEspaceTravail;
 	private ArrayList<EspaceTravail> EspaceTravailAutre;
 	private ArrayList<Tableau> sesTableau;
@@ -19,7 +23,9 @@ public class Membre {
 	private String emailMembre;
 	private String imageProfile;
 
-	// Constructor
+	//////////////////////////////////
+	// 			Constructor			//
+	//////////////////////////////////
 	public Membre(EspaceTravail sonEspaceTravail) {
 		this.EspaceTravailAutre = new ArrayList<EspaceTravail>();
 		this.sesEspaceTravail =new ArrayList<EspaceTravail>();
@@ -33,9 +39,12 @@ public class Membre {
 		emailMembre = "";
 		imageProfile = "";
 		sonEspaceTravail.setSonProprietaire(this);
+		log.addActivity("Membre "+numMembre+"-"+nomMembre+" créé");
 	}
 
-	// Getter
+	///////////////////////////////////
+	// 			   Getter			 //
+	///////////////////////////////////
 
 	public ArrayList<EspaceTravail> getSesEspaceDeTravail() {
 		return sesEspaceTravail;
@@ -71,27 +80,32 @@ public class Membre {
 		return imageProfile;
 	}
 	
-	// Setter
-
-
+	/////////////////////////////////////
+	// 				Setters			   //
+	/////////////////////////////////////
 	public void setNomMembre(String nomMembre) {
 		this.nomMembre = nomMembre;
+		log.addActivity("Nom du Membre "+numMembre+"-"+nomMembre+" modifié");
 	}
 
 	public void setPrenomMembre(String prenomMembre) {
 		this.prenomMembre = prenomMembre;
+		log.addActivity("Prénom du Membre "+numMembre+"-"+prenomMembre+" modifié");
 	}
 
 	public void setEmailMembre(String emailMembre) {
 		this.emailMembre = emailMembre;
+		log.addActivity("Email du Membre "+numMembre+"-"+emailMembre+" modifié");
 	}
 
 	public void setImageProfile(String imageProfile) {
 		this.imageProfile = imageProfile;
+		log.addActivity("Image du Membre "+numMembre+"-"+imageProfile+" modifié");
 	}
 
-	// Methodes
-
+	/////////////////////////////////////
+	// 				Methodes		   //
+	/////////////////////////////////////
 	public EspaceTravail creeEspaceDetravail(String nomEspaceDeTravail ){
 		EspaceTravail e =new EspaceTravail();
 		e.setSonProprietaire(this);
@@ -110,6 +124,7 @@ public class Membre {
 		if (this.sesEspaceTravail.contains(e)){
 			e.supprimer();
 			sesEspaceTravail.remove(e);
+			log.addActivity("Espace de travail "+e.getNomEspaceDeTravail()+" supprimé");
 			return true;
 		}
 		else {
@@ -132,6 +147,7 @@ public class Membre {
 		if (!this.sesCartes.contains(Carte)) {
 			this.sesCartes.add(Carte);
 			Carte.ajouterMembre(this);
+			log.addActivity("Carte "+Carte.getNumCarte()+"-"+Carte.getTitreCarte()+" ajoutée au membre "+numMembre+"-"+nomMembre);
 		}
 
 
@@ -140,6 +156,7 @@ public class Membre {
 		if (this.sesCartes.contains(Carte)) {
 			this.sesCartes.remove(Carte);
 			Carte.retirerMembre(this);
+			log.addActivity("Carte "+Carte.getNumCarte()+"-"+Carte.getTitreCarte()+" retirée au membre "+numMembre+"-"+nomMembre);
 		}
 	}
 
@@ -147,6 +164,7 @@ public class Membre {
 		if (!this.sesTableau.contains(t)){
 			this.sesTableau.add(t);
 			t.ajouterMembre(this);
+			log.addActivity("Tableau "+t.getNumTableau()+"-"+t.getNomTableau()+" ajouté au membre "+numMembre+"-"+nomMembre);
 		}
 	}
 
@@ -154,6 +172,7 @@ public class Membre {
 		if(this.sesTableau.contains(t)){
 			this.sesTableau.remove(t);
 			t.retireMembre(this);
+			log.addActivity("Tableau "+t.getNumTableau()+"-"+t.getNomTableau()+" retiré au membre "+numMembre+"-"+nomMembre);
 		}
 	}
 
@@ -161,6 +180,7 @@ public class Membre {
 		if(!this.sesListe.contains(l)){
 			this.sesListe.add(l);
 			l.ajouterMembre(this);
+			log.addActivity("Liste "+l.getNumListe()+"-"+l.getNomListe()+" ajoutée au membre "+numMembre+"-"+nomMembre);
 		}
 	}
 
@@ -168,6 +188,7 @@ public class Membre {
 		if (this.sesListe.contains(l)){
 			this.sesListe.remove(l);
 			l.retirerMembre(this);
+			log.addActivity("Liste "+l.getNumListe()+"-"+l.getNomListe()+" retirée au membre "+numMembre+"-"+nomMembre);
 		}
 	}
 
@@ -211,6 +232,7 @@ public class Membre {
 		for (EspaceTravail e:EspaceTravailAutre) {
 			e.retirerMembre(this);
 		}
+		log.addActivity("Membre "+numMembre+"-"+nomMembre+" supprimé");
 		return true;
 	}
 

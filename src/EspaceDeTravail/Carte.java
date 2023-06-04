@@ -7,6 +7,7 @@ public class Carte {
 	private static int compteurNum = 0;
 	
 	// Attribut d'instance
+	Log log = Log.getInstance();
 	private Liste saListe;
 	private ArrayList<Membre> sesMembres;
 	private int numCarte;
@@ -25,6 +26,7 @@ public class Carte {
 		description = "";
 		dateDebut = "01/01/2023";
 		dateLimite = "28/05/2023";
+		log.addActivity("Carte vide créée");
 	}
 	public Carte(Liste saListe, String titreCarte){
 		this.saListe = saListe;
@@ -35,6 +37,7 @@ public class Carte {
 		description = "";
 		dateDebut = "01/01/2023";
 		dateLimite = "28/05/2023";
+		log.addActivity("Carte "+numCarte+"-"+titreCarte+" créée");
 	}
 	public Carte(Liste saListe,String titreCarte, ArrayList<Membre> sesMembres, int numCarte, String description, String dateDebut, String dateLimite) {
 		this.saListe = saListe;
@@ -45,10 +48,10 @@ public class Carte {
 		this.description = description;
 		this.dateDebut = dateDebut;
 		this.dateLimite = dateLimite;
+		log.addActivity("Carte "+numCarte+"-"+titreCarte+" créée");
 	}
 
-	// Getters 
-
+	// Getters
 
 	public Liste getSaListe() {
 		return saListe;
@@ -83,22 +86,27 @@ public class Carte {
 
 	public void setSaListe(Liste saListe) {
 		this.saListe = saListe;
+		log.addActivity("Liste "+saListe.getNomListe()+" ajoutée à la carte "+numCarte+"-"+titreCarte);
 	}
 
 	public void setTitreCarte(String titreCarte) {
 		this.titreCarte = titreCarte;
+		log.addActivity("Titre de la Carte "+numCarte+"-"+titreCarte+" renommée");
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+		log.addActivity("Description de la Carte "+numCarte+"-"+titreCarte+" modifiée");
 	}
 
 	public void setDateDebut(String dateDebut) {
 		this.dateDebut = dateDebut;
+		log.addActivity("Date de début de la Carte "+numCarte+"-"+titreCarte+" modifiée");
 	}
 
 	public void setDateLimite(String dateLimite) {
 		this.dateLimite = dateLimite;
+		log.addActivity("Date de fin de la Carte "+numCarte+"-"+titreCarte+" modifiée");
 	}
 
 	// Methodes
@@ -106,12 +114,14 @@ public class Carte {
 		if (!Membre.getSesCartes().contains(this)) {
 			this.sesMembres.add(Membre);
 			Membre.ajouterCarte(this);
+			log.addActivity("Membre "+Membre.getNumMembre()+"-"+Membre.getNomMembre()+" "+Membre.getPrenomMembre()+" ajouté à la carte "+numCarte+"-"+titreCarte);
 		}
 	}
 	public void retirerMembre(Membre Membre){
 		if (Membre.getSesCartes().contains(this)) {
 			this.sesMembres.remove(Membre);
 			Membre.retirerCarte(this);
+			log.addActivity("Membre "+Membre.getNumMembre()+"-"+Membre.getNomMembre()+" "+Membre.getPrenomMembre()+" retiré de la carte "+numCarte+"-"+titreCarte);
 		}
 	}
 	public int nbMembre(){
@@ -125,6 +135,7 @@ public class Carte {
 		for (Membre m:sesMembres) {
 			m.retirerCarte(this);
 		}
+		log.addActivity("Carte "+numCarte+"-"+titreCarte+" supprimée");
 		return true;
 	}
 

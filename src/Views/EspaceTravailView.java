@@ -4,7 +4,6 @@ import Controller.EspaceTravailController;
 import Controller.TableauController;
 import EspaceDeTravail.EspaceTravail;
 import EspaceDeTravail.Membre;
-import EspaceDeTravail.Objets;
 import EspaceDeTravail.Tableau;
 import Trello.AppliTrelloLite;
 

@@ -3,10 +3,15 @@ package EspaceDeTravail;
 import java.util.*;
 
 public class EspaceTravail {
+	//////////////////////////
+	//        Attributs     //
+	//////////////////////////
+
 	// Attribut de classe
 	private static int compteurNum = 0;
 
 	// Attribut d'instance
+	Log log = Log.getInstance();
 	private ArrayList<Tableau> sesTableaux;
 	private ArrayList<Membre> sesMembres;
 	private Membre sonProprietaire;
@@ -15,7 +20,9 @@ public class EspaceTravail {
 	private String nomEspaceDeTravail;
 	private String logoEspaceDeTravail;
 
-	// Constructeur
+	////////////////////////////
+	//		 Constructeur	  //
+	////////////////////////////
 	public EspaceTravail() {
 		sesTableaux = new ArrayList<Tableau>();
 		sesMembres = new ArrayList<Membre>();
@@ -24,6 +31,7 @@ public class EspaceTravail {
 		nomEspaceDeTravail = "Espace de";
 		logoEspaceDeTravail = "";
 		sonProprietaire = null;
+		log.addActivity("Espace de Travail vide créé");
 	}
 
 	public EspaceTravail(ArrayList<Tableau> sesTableaux, ArrayList<Membre> sesMembres, Visibilite saVisibilité, String nomEspaceDeTravail, String logoEspaceDeTravail) {
@@ -33,9 +41,12 @@ public class EspaceTravail {
 		this.numEspaceDeTravail = compteurNum++;
 		this.nomEspaceDeTravail = nomEspaceDeTravail;
 		this.logoEspaceDeTravail = logoEspaceDeTravail;
+		log.addActivity("Espace de Travail "+numEspaceDeTravail+"-"+nomEspaceDeTravail+" créé");
 	}
 	
-	// Getters 
+	/////////////////////////////
+	// 			Getters		   //
+	/////////////////////////////
 
 	public Membre getSonProprietaire() {
 		return sonProprietaire;
@@ -43,6 +54,7 @@ public class EspaceTravail {
 	public void setSonProprietaire(Membre m){
 		sonProprietaire= m;
 		sesMembres.add(m);
+		log.addActivity("Membre "+m.getNumMembre()+"-"+m.getNomMembre()+" ajouté dans l'espace de travail"+numEspaceDeTravail+"-"+nomEspaceDeTravail);
 	}
 
 	public ArrayList<Tableau> getSesTableaux() {
@@ -77,10 +89,12 @@ public class EspaceTravail {
 
 	public void setNomEspaceDeTravail(String nomEspaceDeTravail) {
 		this.nomEspaceDeTravail = nomEspaceDeTravail;
+		log.addActivity("Nom de l'Espace de Travail "+numEspaceDeTravail+"-"+nomEspaceDeTravail+" modifie");
 	}
 
 	public void setLogoEspaceDeTravail(String logoEspaceDeTravail) {
 		this.logoEspaceDeTravail = logoEspaceDeTravail;
+		log.addActivity("Logo de l'Espace de Travail "+numEspaceDeTravail+"-"+nomEspaceDeTravail+" modifie");
 	}
 
 	// Methodes
@@ -103,6 +117,7 @@ public class EspaceTravail {
 			}
 			m.ajouterEspaceDeTravail(this);
 		}
+		
 	}
 
 	public void retirerMembre(Membre m){
@@ -112,6 +127,7 @@ public class EspaceTravail {
 				t.retireMembre(m);
 			}
 			m.retirerEspaceDeTravail(this);
+			log.addActivity("Membre "+m.getNumMembre()+"-"+m.getNomMembre()+" retiré de l'espace de travail"+numEspaceDeTravail+"-"+nomEspaceDeTravail);
 		}
 	}
 
@@ -135,7 +151,7 @@ public class EspaceTravail {
 				m.retirerEspaceDeTravail(this);
 			}
 		}
-
+		log.addActivity("Espace de travail "+numEspaceDeTravail+"-"+nomEspaceDeTravail+" supprimé");
 		return true;
 	}
 
